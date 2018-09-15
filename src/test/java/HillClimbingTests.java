@@ -1,3 +1,5 @@
+import interfaces.IHillClimbProblem;
+import nqueens.NQueensProblem;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -6,6 +6,7 @@ public class HillClimbParams {
 
     private double goalScore = Integer.MAX_VALUE;
     private boolean descend = false;
+    private int maxIterations = Integer.MAX_VALUE;
 
     /**
      * Returns the early termination goal score parameter.
@@ -39,12 +40,30 @@ public class HillClimbParams {
      * is selected and the default goal score is not changed, then the goal score is automatically set to
      * Integer.MAX_VALUE.
      *
-     * @param descend
+     * @param descend true if hill climbing is to minimize
      */
     public void setDescend(boolean descend) {
         this.descend = descend;
 
         if(descend && goalScore == Integer.MAX_VALUE)
             goalScore = Integer.MIN_VALUE;
+    }
+
+    /**
+     * Returns the maximum number of iterations hill climbing can run.
+     *
+     * @return the max number of iterations to run
+     */
+    public int getMaxIterations() {
+        return maxIterations;
+    }
+
+    /**
+     * Sets the maximum number of iterations hill climbing can run.
+     *
+     * @param maxIterations the max number of iterations to run
+     */
+    public void setMaxIterations(int maxIterations) {
+        this.maxIterations = maxIterations;
     }
 }

@@ -1,9 +1,13 @@
+package nqueens;
+
+import interfaces.IHillClimbProblem;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Representation of the NQueens problem. Contains the current postions of queens on the board; we make a restriction
+ * Representation of the nqueens problem. Contains the current postions of queens on the board; we make a restriction
  * that only one queen can be in a column. This allows the board/state to be represented by a one dimensional array
  * instead of two.
  */
@@ -17,7 +21,7 @@ public class NQueensProblem implements IHillClimbProblem {
     }
 
     /**
-     * For the NQueens problem, the state/board score will be based on the number of total conflicts. Queens are in
+     * For the nqueens problem, the state/board score will be based on the number of total conflicts. Queens are in
      * conflict if they can take one another(chess rules: same col/row or diagonal).
      *
      * @return the boards total number of conflicts
@@ -106,17 +110,17 @@ public class NQueensProblem implements IHillClimbProblem {
     }
 
     /**
-     * Returns the array that represents the NQueens board. Each array cell represents a column and the number stored
+     * Returns the array that represents the nqueens board. Each array cell represents a column and the number stored
      * in that cell represents the row the queen occupies.
      *
-     * @return the NQueens board representation.
+     * @return the nqueens board representation.
      */
     public int[] getBoard() {
         return this.board;
     }
 
     /**
-     * Converts the NQueensProblem's board/state into a string. Q will represent queens and * will represent empty
+     * Converts the nqueens.NQueensProblem's board/state into a string. Q will represent queens and * will represent empty
      * board spaces.
      *
      * @return string representation of the NQueensIndividual's board
@@ -135,7 +139,7 @@ public class NQueensProblem implements IHillClimbProblem {
     }
 
     /**
-     * Compares the board of the current NQueensProblem with another.
+     * Compares the board of the current nqueens.NQueensProblem with another.
      *
      * @param o object to compare with
      * @return true if two NQueensProblems have the same board
@@ -149,9 +153,9 @@ public class NQueensProblem implements IHillClimbProblem {
     }
 
     /**
-     * Generates a hashcode for a NQueensProblem, this hash code is based of the board.
+     * Generates a hashcode for a nqueens.NQueensProblem, this hash code is based of the board.
      *
-     * @return hashcode for NQueensProblem
+     * @return hashcode for nqueens.NQueensProblem
      */
     @Override
     public int hashCode(){

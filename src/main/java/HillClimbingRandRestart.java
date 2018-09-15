@@ -1,21 +1,24 @@
+import interfaces.IHillClimbProbHelper;
 import interfaces.IHillClimbProblem;
-import nqueens.NQueensProblem;
+import nqueens.NQueensProblemHelper;
 
 import java.util.List;
 
 /**
- * An implementation of the Hill Climbing algorithm to perform optimization/search. This is the standard implementation
- * with no restarts, so it is unlikely the most optimal state will be found. Can be used for minimization or
+ * An implementation of the Hill Climbing With Random Restarts algorithm to perform optimization/search. The true
+ * optimal state is more likely to be found if the algorithm is ran for many iterations. Can be used for minimization or
  * maximization. Also has the ability for early termination when a specific value is found and can terminate when a set
  * number of iterations are executed.
  */
-public class HillClimbing {
+public class HillClimbingRandRestart {
 
     private HillClimbParams params;
     private IHillClimbProblem initialState;
+    private IHillClimbProbHelper helper;
 
-    public HillClimbing(IHillClimbProblem initialState, HillClimbParams params) {
+    public HillClimbingRandRestart(IHillClimbProblem initialState, IHillClimbProbHelper helper, HillClimbParams params) {
         this.initialState = initialState;
+        this.helper = helper;
         this.params = params;
     }
 
@@ -27,10 +30,8 @@ public class HillClimbing {
     public IHillClimbProblem optimize() {
         // Make current The Initial State
         IHillClimbProblem current = this.initialState;
+        IHillClimbProblem bestSoFar =  this.initialState; // Keeps the best state found over all restarts
         current.setScore(current.scoreState());
-
-        // Used To Mark a Valley or Peak
-        boolean end = false;
 
         int iterations = 0;
 
@@ -42,22 +43,30 @@ public class HillClimbing {
 
             IHillClimbProblem bestNextState = getBestNextState(nextStates);
 
-            // Check If We Hit Valley/Peak Otherwise Update Current And Continue
+            // Check If We Hit Valley/Peak then Random Restart Otherwise Update Current And Continue
             if(!params.isDescend())
-                if(bestNextState.getScore() > current.getScore())
+                if(bestNextState.getScore() > current.getScore()) {
                     current = bestNextState;
-                else
-                    end = true;
+                    bestSoFar = current;
+                } else {
+                    current = helper.randomState();
+                    if(current.getScore() > bestSoFar.getScore())
+                        bestSoFar = current;
+                }
             else
-                if(bestNextState.getScore() < current.getScore())
+                if(bestNextState.getScore() < current.getScore()) {
                     current = bestNextState;
-                else
-                    end = true;
+                    bestSoFar = current;
+                } else {
+                    current = helper.randomState();
+                    if(current.getScore() < bestSoFar.getScore())
+                        bestSoFar = current;
+                }
 
             iterations++;
-        } while(!isGoalScore(current) &&  !end && iterations < params.getMaxIterations());
+        } while(!isGoalScore(current) && iterations < params.getMaxIterations());
 
-        return current;
+        return bestSoFar;
     }
 
     // Linear Run Over Next Possible States To Find The One With The Best Score
@@ -89,10 +98,12 @@ public class HillClimbing {
         HillClimbParams params = new HillClimbParams();
         params.setDescend(true);
         params.setGoalScore(0);
-        params.setMaxIterations(5);
+        params.setMaxIterations(1000);
 
-        NQueensProblem initialState = new NQueensProblem(new int[]{0,1,2,3});
-        HillClimbing climber = new HillClimbing(initialState, params);
+        NQueensProblemHelper helper = new NQueensProblemHelper(20);
+
+        IHillClimbProblem initialState = helper.randomState();
+        HillClimbingRandRestart climber = new HillClimbingRandRestart(initialState, helper, params);
         IHillClimbProblem optimal = climber.optimize();
         System.out.println(optimal);
         System.out.println("Score: " + optimal.getScore());
