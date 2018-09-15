@@ -1,6 +1,12 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Representation of the NQueens problem. Contains the current postions of queens on the board; we make a restriction
+ * that only one queen can be in a column. This allows the board/state to be represented by a one dimensional array
+ * instead of two.
+ */
 public class NQueensProblem implements IHillClimbProblem {
 
     private int[] board;
@@ -40,7 +46,6 @@ public class NQueensProblem implements IHillClimbProblem {
                 }
 
             }
-
         }
 
         return  score;
@@ -56,7 +61,6 @@ public class NQueensProblem implements IHillClimbProblem {
      */
     @Override
     public List<IHillClimbProblem> generateNextStates() {
-
         ArrayList<IHillClimbProblem> nextStates = new ArrayList<>();
 
         // For Each Queen Iterate Over All Possible Row Moves(Ignoring Current Row Queen Is Positioned)
@@ -70,7 +74,7 @@ public class NQueensProblem implements IHillClimbProblem {
 
                 // Make Copy Of Current Board
                 int[] newBoard = new int[this.board.length];
-                System.arraycopy(newBoard, 0, newBoard, 0, this.board.length );
+                System.arraycopy(this.board, 0, newBoard, 0, this.board.length );
 
                 // Modify Board To Represent Moving The Current Queen To The Current Row
                 newBoard[queen] = row;
@@ -99,6 +103,59 @@ public class NQueensProblem implements IHillClimbProblem {
     @Override
     public void setScore(double score) {
         this.score = score;
+    }
+
+    /**
+     * Returns the array that represents the NQueens board. Each array cell represents a column and the number stored
+     * in that cell represents the row the queen occupies.
+     *
+     * @return the NQueens board representation.
+     */
+    public int[] getBoard() {
+        return this.board;
+    }
+
+    /**
+     * Converts the NQueensProblem's board/state into a string. Q will represent queens and * will represent empty
+     * board spaces.
+     *
+     * @return string representation of the NQueensIndividual's board
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for(int row = 0; row < this.board.length; row++) {
+            for (int column = 0; column < this.board.length; column++)
+                sb.append((this.board[column] == row) ? "Q " : "* ");
+            // Start New Row
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
+
+    /**
+     * Compares the board of the current NQueensProblem with another.
+     *
+     * @param o object to compare with
+     * @return true if two NQueensProblems have the same board
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o != null && o instanceof NQueensProblem)
+            return Arrays.equals(this.board, ((NQueensProblem) o).getBoard());
+
+        return false;
+    }
+
+    /**
+     * Generates a hashcode for a NQueensProblem, this hash code is based of the board.
+     *
+     * @return hashcode for NQueensProblem
+     */
+    @Override
+    public int hashCode(){
+        return this.board.hashCode();
     }
 
 }
