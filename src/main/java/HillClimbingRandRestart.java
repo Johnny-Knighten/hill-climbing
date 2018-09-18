@@ -44,7 +44,7 @@ public class HillClimbingRandRestart {
             IHillClimbProblem bestNextState = getBestNextState(nextStates);
 
             // Check If We Hit Valley/Peak then Random Restart Otherwise Update Current And Continue
-            if(!params.isDescend())
+            if(!params.isMinimization())
                 if(bestNextState.getScore() > current.getScore()) {
                     current = bestNextState;
                     bestSoFar = current;
@@ -74,7 +74,7 @@ public class HillClimbingRandRestart {
         IHillClimbProblem best = nextStates.get(0);
         for(int nextState=1; nextState<nextStates.size(); nextState++) {
             // If Ascending Check If Current IHillClimbProblems Has Higher Score The Current Best
-            if (!params.isDescend()) {
+            if (!params.isMinimization()) {
                 if (best.getScore() < nextStates.get(nextState).getScore())
                     best = nextStates.get(nextState);
             } else {
@@ -88,19 +88,19 @@ public class HillClimbingRandRestart {
 
     // Check For Goal Score Depending on Minimization or Maximization
     private boolean isGoalScore(IHillClimbProblem current) {
-        if(!params.isDescend())
+        if(!params.isMinimization())
             return current.getScore() >= params.getGoalScore();
-        else
-            return current.getScore() <= params.getGoalScore();
+
+        return current.getScore() <= params.getGoalScore();
     }
 
     public static void main(String args[]) {
         HillClimbParams params = new HillClimbParams();
-        params.setDescend(true);
+        params.setMinimization(true);
         params.setGoalScore(0);
         params.setMaxIterations(1000);
 
-        NQueensProblemHelper helper = new NQueensProblemHelper(20);
+        NQueensProblemHelper helper = new NQueensProblemHelper(8, 0);
 
         IHillClimbProblem initialState = helper.randomState();
         HillClimbingRandRestart climber = new HillClimbingRandRestart(initialState, helper, params);

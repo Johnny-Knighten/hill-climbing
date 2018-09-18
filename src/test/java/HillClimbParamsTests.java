@@ -13,8 +13,9 @@ public class HillClimbParamsTests {
 
     @Test
     public void setAscendWithDefaultGoalScore() {
-        setAscendWithDefaulGSParams.setDescend(true);
-        Assert.assertTrue(setAscendWithDefaulGSParams.isDescend());
+        setAscendWithDefaulGSParams.setMinimization(true);
+        Assert.assertTrue(setAscendWithDefaulGSParams.isMinimization());
         Assert.assertEquals(Integer.MIN_VALUE, setAscendWithDefaulGSParams.getGoalScore(), .000001);
     }
+
 }

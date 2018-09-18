@@ -33,7 +33,6 @@ public class NQueensProblemTests {
         fiftySixNextStates = new NQueensProblem(new int[]{0,1,2,3,4,5,6,7});
     }
 
-
     //////////////////////////
     // Scoring Method Tests //
     //////////////////////////
@@ -61,7 +60,6 @@ public class NQueensProblemTests {
         double score = maxConflictBoard.scoreState();
         Assert.assertEquals(28, score, 0.0001);
     }
-
 
     ////////////////////////////////////////
     // Next State Generation Method Tests //
@@ -117,4 +115,5 @@ public class NQueensProblemTests {
         Assert.assertTrue(nextStates.contains(new NQueensProblem(new int[]{0,1,2,1})));
         Assert.assertTrue(nextStates.contains(new NQueensProblem(new int[]{0,1,2,2})));
     }
+
 }

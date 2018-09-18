@@ -30,7 +30,7 @@ public class HillClimbing {
         current.setScore(current.scoreState());
 
         // Used To Mark a Valley or Peak
-        boolean end = false;
+        boolean isValleyOrPeak = false;
 
         int iterations = 0;
 
@@ -43,19 +43,19 @@ public class HillClimbing {
             IHillClimbProblem bestNextState = getBestNextState(nextStates);
 
             // Check If We Hit Valley/Peak Otherwise Update Current And Continue
-            if(!params.isDescend())
+            if(!params.isMinimization())
                 if(bestNextState.getScore() > current.getScore())
                     current = bestNextState;
                 else
-                    end = true;
+                    isValleyOrPeak = true;
             else
                 if(bestNextState.getScore() < current.getScore())
                     current = bestNextState;
                 else
-                    end = true;
+                    isValleyOrPeak = true;
 
             iterations++;
-        } while(!isGoalScore(current) &&  !end && iterations < params.getMaxIterations());
+        } while(!isGoalScore(current) && !isValleyOrPeak && iterations < params.getMaxIterations());
 
         return current;
     }
@@ -65,7 +65,7 @@ public class HillClimbing {
         IHillClimbProblem best = nextStates.get(0);
         for(int nextState=1; nextState<nextStates.size(); nextState++) {
             // If Ascending Check If Current IHillClimbProblems Has Higher Score The Current Best
-            if (!params.isDescend()) {
+            if (!params.isMinimization()) {
                 if (best.getScore() < nextStates.get(nextState).getScore())
                     best = nextStates.get(nextState);
             } else {
@@ -79,15 +79,15 @@ public class HillClimbing {
 
     // Check For Goal Score Depending on Minimization or Maximization
     private boolean isGoalScore(IHillClimbProblem current) {
-        if(!params.isDescend())
+        if(!params.isMinimization())
             return current.getScore() >= params.getGoalScore();
-        else
-            return current.getScore() <= params.getGoalScore();
+
+        return current.getScore() <= params.getGoalScore();
     }
 
     public static void main(String args[]) {
         HillClimbParams params = new HillClimbParams();
-        params.setDescend(true);
+        params.setMinimization(true);
         params.setGoalScore(0);
         params.setMaxIterations(5);
 

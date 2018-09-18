@@ -1,11 +1,11 @@
 /**
- * Contains parameters used by HillCLimb. Contains a goal score early termination parameter and a parameter to control
- * if hill climbing will me minimizing or maximizing.
+ * Contains parameters used by HillCLimb. Has parameters to control: termination when specific score is found, if hill
+ * climbing is performing minimization or maximization, and to limit the number of iterations hill climbing can run.
  */
 public class HillClimbParams {
 
     private double goalScore = Integer.MAX_VALUE;
-    private boolean descend = false;
+    private boolean minimization = false;
     private int maxIterations = Integer.MAX_VALUE;
 
     /**
@@ -31,21 +31,22 @@ public class HillClimbParams {
      *
      * @return true if minimizing
      */
-    public boolean isDescend() {
-        return descend;
+    public boolean isMinimization() {
+        return minimization;
     }
 
     /**
-     * Sets the parameter that indicates minimization should be performed. The default is maximization. Note: if descend
+     * Sets the parameter that indicates minimization should be performed. The default is maximization. Note: if minimization
      * is selected and the default goal score is not changed, then the goal score is automatically set to
      * Integer.MAX_VALUE.
      *
-     * @param descend true if hill climbing is to minimize
+     * @param minimization true if hill climbing is to minimize
      */
-    public void setDescend(boolean descend) {
-        this.descend = descend;
+    public void setMinimization(boolean minimization) {
+        this.minimization = minimization;
 
-        if(descend && goalScore == Integer.MAX_VALUE)
+        // Swap Default goalScore If Minimization Is Selected
+        if(minimization && goalScore == Integer.MAX_VALUE)
             goalScore = Integer.MIN_VALUE;
     }
 
