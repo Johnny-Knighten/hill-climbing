@@ -1,5 +1,5 @@
-import interfaces.IHillClimbProblem;
-import nqueens.NQueens;
+import interfaces.IHillClimbSolution;
+import nqueens.NQueensSoln;
 
 import java.util.List;
 
@@ -12,10 +12,10 @@ import java.util.List;
 public class HillClimb {
 
     private HillClimbParams params;
-    private IHillClimbProblem initialState;
+    private IHillClimbSolution initialSolution;
 
-    public HillClimb(IHillClimbProblem initialState, HillClimbParams params) {
-        this.initialState = initialState;
+    public HillClimb(IHillClimbSolution initialSolution, HillClimbParams params) {
+        this.initialSolution = initialSolution;
         this.params = params;
     }
 
@@ -24,9 +24,9 @@ public class HillClimb {
      *
      * @return the most optimal state found
      */
-    public IHillClimbProblem optimize() {
+    public IHillClimbSolution optimize() {
         // Make current The Initial State
-        IHillClimbProblem current = this.initialState;
+        IHillClimbSolution current = this.initialSolution;
         current.setScore(current.scoreState());
 
         // Used To Mark a Valley or Peak
@@ -36,11 +36,11 @@ public class HillClimb {
 
         do {
             // Generate Next States and Score Them
-            List<IHillClimbProblem> nextStates = current.generateNextStates();
-            for(IHillClimbProblem state: nextStates)
+            List<IHillClimbSolution> nextStates = current.generateNextSolns();
+            for(IHillClimbSolution state: nextStates)
                 state.setScore(state.scoreState());
 
-            IHillClimbProblem bestNextState = getBestNextState(nextStates);
+            IHillClimbSolution bestNextState = getBestNextState(nextStates);
 
             // Check If We Hit Valley/Peak Otherwise Update Current And Continue
             if(!params.isMinimization())
@@ -61,8 +61,8 @@ public class HillClimb {
     }
 
     // Linear Run Over Next Possible States To Find The One With The Best Score
-    private IHillClimbProblem getBestNextState(List<IHillClimbProblem> nextStates) {
-        IHillClimbProblem best = nextStates.get(0);
+    private IHillClimbSolution getBestNextState(List<IHillClimbSolution> nextStates) {
+        IHillClimbSolution best = nextStates.get(0);
         for(int nextState=1; nextState<nextStates.size(); nextState++) {
             // If Ascending Check If Current IHillClimbProblems Has Higher Score The Current Best
             if (!params.isMinimization()) {
@@ -78,7 +78,7 @@ public class HillClimb {
     }
 
     // Check For Goal Score Depending on Minimization or Maximization
-    private boolean isGoalScore(IHillClimbProblem current) {
+    private boolean isGoalScore(IHillClimbSolution current) {
         if(!params.isMinimization())
             return current.getScore() >= params.getGoalScore();
 
@@ -91,9 +91,9 @@ public class HillClimb {
         params.setGoalScore(0);
         params.setMaxIterations(25);
 
-        NQueens initialState = new NQueens(new int[]{0,1,2,3,4,5,6,7});
+        NQueensSoln initialState = new NQueensSoln(new int[]{0,1,2,3,4,5,6,7});
         HillClimb climber = new HillClimb(initialState, params);
-        IHillClimbProblem optimal = climber.optimize();
+        IHillClimbSolution optimal = climber.optimize();
 
         System.out.println(optimal);
         System.out.println("Score: " + optimal.getScore());

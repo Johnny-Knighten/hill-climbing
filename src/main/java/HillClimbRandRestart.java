@@ -1,6 +1,6 @@
-import interfaces.IHillClimbProbGenerator;
-import interfaces.IHillClimbProblem;
-import nqueens.NQueensGenerator;
+import interfaces.IHillClimbSolnGenerator;
+import interfaces.IHillClimbSolution;
+import nqueens.NQueensSolnGenerator;
 
 import java.util.List;
 
@@ -13,12 +13,12 @@ import java.util.List;
 public class HillClimbRandRestart {
 
     private HillClimbParams params;
-    private IHillClimbProblem initialState;
-    private IHillClimbProbGenerator generator;
+    private IHillClimbSolution initialSolution;
+    private IHillClimbSolnGenerator generator;
 
-    public HillClimbRandRestart(IHillClimbProblem initialState, IHillClimbProbGenerator generator,
+    public HillClimbRandRestart(IHillClimbSolution initialSolution, IHillClimbSolnGenerator generator,
                                 HillClimbParams params) {
-        this.initialState = initialState;
+        this.initialSolution = initialSolution;
         this.generator = generator;
         this.params = params;
     }
@@ -28,21 +28,21 @@ public class HillClimbRandRestart {
      *
      * @return the most optimal state found
      */
-    public IHillClimbProblem optimize() {
+    public IHillClimbSolution optimize() {
         // Make current The Initial State
-        IHillClimbProblem current = this.initialState;
-        IHillClimbProblem bestSoFar =  this.initialState; // Keeps the best state found over all restarts
+        IHillClimbSolution current = this.initialSolution;
+        IHillClimbSolution bestSoFar =  this.initialSolution; // Keeps the best state found over all restarts
         current.setScore(current.scoreState());
 
         int iterations = 0;
 
         do {
             // Generate Next States and Score Them
-            List<IHillClimbProblem> nextStates = current.generateNextStates();
-            for(IHillClimbProblem state: nextStates)
+            List<IHillClimbSolution> nextStates = current.generateNextSolns();
+            for(IHillClimbSolution state: nextStates)
                 state.setScore(state.scoreState());
 
-            IHillClimbProblem bestNextState = getBestNextState(nextStates);
+            IHillClimbSolution bestNextState = getBestNextState(nextStates);
 
             // Check If We Hit Valley/Peak then Random Restart Otherwise Update Current And Continue
             if(!params.isMinimization())
@@ -50,7 +50,7 @@ public class HillClimbRandRestart {
                     current = bestNextState;
                     bestSoFar = current;
                 } else {
-                    current = generator.randomState();
+                    current = generator.randomSolution();
                     if(current.getScore() > bestSoFar.getScore())
                         bestSoFar = current;
                 }
@@ -59,7 +59,7 @@ public class HillClimbRandRestart {
                     current = bestNextState;
                     bestSoFar = current;
                 } else {
-                    current = generator.randomState();
+                    current = generator.randomSolution();
                     if(current.getScore() < bestSoFar.getScore())
                         bestSoFar = current;
                 }
@@ -71,8 +71,8 @@ public class HillClimbRandRestart {
     }
 
     // Linear Run Over Next Possible States To Find The One With The Best Score
-    private IHillClimbProblem getBestNextState(List<IHillClimbProblem> nextStates) {
-        IHillClimbProblem best = nextStates.get(0);
+    private IHillClimbSolution getBestNextState(List<IHillClimbSolution> nextStates) {
+        IHillClimbSolution best = nextStates.get(0);
         for(int nextState=1; nextState<nextStates.size(); nextState++) {
             // If Ascending Check If Current IHillClimbProblems Has Higher Score The Current Best
             if (!params.isMinimization()) {
@@ -88,7 +88,7 @@ public class HillClimbRandRestart {
     }
 
     // Check For Goal Score Depending on Minimization or Maximization
-    private boolean isGoalScore(IHillClimbProblem current) {
+    private boolean isGoalScore(IHillClimbSolution current) {
         if(!params.isMinimization())
             return current.getScore() >= params.getGoalScore();
 
@@ -101,11 +101,11 @@ public class HillClimbRandRestart {
         params.setGoalScore(0);
         params.setMaxIterations(1000);
 
-        NQueensGenerator generator = new NQueensGenerator(8, 0);
+        NQueensSolnGenerator generator = new NQueensSolnGenerator(8, 0);
 
-        IHillClimbProblem initialState = generator.randomState();
+        IHillClimbSolution initialState = generator.randomSolution();
         HillClimbRandRestart climber = new HillClimbRandRestart(initialState, generator, params);
-        IHillClimbProblem optimal = climber.optimize();
+        IHillClimbSolution optimal = climber.optimize();
 
         System.out.println(optimal);
         System.out.println("Score: " + optimal.getScore());

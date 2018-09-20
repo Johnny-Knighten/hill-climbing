@@ -1,6 +1,6 @@
-import interfaces.IHillClimbProblem;
-import nqueens.NQueens;
-import nqueens.NQueensGenerator;
+import interfaces.IHillClimbSolution;
+import nqueens.NQueensSoln;
+import nqueens.NQueensSolnGenerator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,42 +25,42 @@ public class HillClimbRandRestartTests {
 
     @Test
     public void fourQueensMinimize() {
-        NQueens initialState = new NQueens(new int[]{0,1,2,3});
-        NQueensGenerator helper = new NQueensGenerator(4, 0);
+        NQueensSoln initialState = new NQueensSoln(new int[]{0,1,2,3});
+        NQueensSolnGenerator helper = new NQueensSolnGenerator(4, 0);
         HillClimbRandRestart climber = new HillClimbRandRestart(initialState, helper , minimizeHillClimb);
-        IHillClimbProblem solution = climber.optimize();
+        IHillClimbSolution solution = climber.optimize();
 
         Assert.assertEquals(0, solution.getScore(), 00000.1);
     }
 
     @Test
     public void fourQueensMaximize() {
-        NQueens initialState = new NQueens(new int[]{1,0,2,3});
-        NQueensGenerator helper = new NQueensGenerator(4, 0);
+        NQueensSoln initialState = new NQueensSoln(new int[]{1,0,2,3});
+        NQueensSolnGenerator helper = new NQueensSolnGenerator(4, 0);
         maximizeHillClimb.setGoalScore(6);
         HillClimbRandRestart climber = new HillClimbRandRestart(initialState, helper , maximizeHillClimb);
-        IHillClimbProblem solution = climber.optimize();
+        IHillClimbSolution solution = climber.optimize();
 
         Assert.assertEquals(6, solution.getScore(), 00000.1);
     }
 
     @Test
     public void eightQueensMinimize() {
-        NQueens initialState = new NQueens(new int[]{0,1,2,3,4,5,6,7});
-        NQueensGenerator helper = new NQueensGenerator(8, 0);
+        NQueensSoln initialState = new NQueensSoln(new int[]{0,1,2,3,4,5,6,7});
+        NQueensSolnGenerator helper = new NQueensSolnGenerator(8, 0);
         HillClimbRandRestart climber = new HillClimbRandRestart(initialState, helper , minimizeHillClimb);
-        IHillClimbProblem solution = climber.optimize();
+        IHillClimbSolution solution = climber.optimize();
 
         Assert.assertEquals(0, solution.getScore(), 00000.1);
     }
 
     @Test
     public void eightQueensMaximize() {
-        NQueens initialState = new NQueens(new int[]{7,2,0,5,1,4,6,3});
-        NQueensGenerator helper = new NQueensGenerator(8, 0);
+        NQueensSoln initialState = new NQueensSoln(new int[]{7,2,0,5,1,4,6,3});
+        NQueensSolnGenerator helper = new NQueensSolnGenerator(8, 0);
         maximizeHillClimb.setGoalScore(28);
         HillClimbRandRestart climber = new HillClimbRandRestart(initialState, helper , maximizeHillClimb);
-        IHillClimbProblem solution = climber.optimize();
+        IHillClimbSolution solution = climber.optimize();
 
         Assert.assertEquals(28, solution.getScore(), 00000.1);
     }
