@@ -1,6 +1,6 @@
 package nqueens;
 
-import interfaces.IHillClimbProbHelper;
+import interfaces.IHillClimbProbGenerator;
 import interfaces.IHillClimbProblem;
 
 import java.util.Random;
@@ -9,26 +9,26 @@ import java.util.Random;
  * Used to generate random NQueensProblems to be used by HillClimbingRandRestarts. Allows the use of seeds for
  * repeatable results.
  */
-public class NQueensProblemHelper implements IHillClimbProbHelper{
+public class NQueensGenerator implements IHillClimbProbGenerator {
 
     private int n;
     private Random rand;
 
-    public NQueensProblemHelper(int n) {
+    public NQueensGenerator(int n) {
         this.n = n;
         rand = new Random();
     }
 
-    public NQueensProblemHelper(int n, long randGenSeed) {
+    public NQueensGenerator(int n, long randGenSeed) {
         this.n = n;
         rand = new Random(randGenSeed);
     }
 
     /**
-     * Generates random NQueensProblem. Creates a random int array with values limited to a specific N, then creates a
-     * NQueensProblem. Will score the state before returning.
+     * Generates random NQueens object. Creates a random int array with values limited to a specific N, then creates a
+     * NQueens. Will score the state before returning.
      *
-     * @return a randomly generated NQueensProblem
+     * @return a randomly generated NQueens
      */
     @Override
     public IHillClimbProblem randomState() {
@@ -39,8 +39,9 @@ public class NQueensProblemHelper implements IHillClimbProbHelper{
             queensPos[queen] = rand.nextInt(this.n);
 
         // Create And Score New Random State
-        NQueensProblem randomState = new NQueensProblem(queensPos);
+        NQueens randomState = new NQueens(queensPos);
         randomState.setScore(randomState.scoreState());
         return randomState;
     }
+
 }

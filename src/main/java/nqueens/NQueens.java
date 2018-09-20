@@ -7,22 +7,22 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Representation of the nqueens problem. Contains the current positions of queens on the board; we make a restriction
- * that only one queen can be in a column. This allows the board/state to be represented by a one dimensional array
- * instead of two.
+ * This is the representation of the nqueens problem. Contains the current positions of queens on the board; we make a
+ * restriction that only one queen can be in a column. This allows the board/state to be represented by a one
+ * dimensional array.
  */
-public class NQueensProblem implements IHillClimbProblem {
+public class NQueens implements IHillClimbProblem {
 
     private int[] board;
     private double score;
 
-    public NQueensProblem(int[] board) {
+    public NQueens(int[] board) {
         this.board = board;
     }
 
     /**
-     * For the NQueensProblem, the state/board score will be based on the number of total conflicts. Queens are in
-     * conflict if they can take one another(chess rules: same col/row or diagonal).
+     * To determine the value for the state of a NQueens board the total number of conflicts on the board will be used.
+     * Queens are in conflict if they can take one another(chess rules: same col/row or diagonal).
      *
      * @return the boards total number of conflicts
      */
@@ -51,7 +51,7 @@ public class NQueensProblem implements IHillClimbProblem {
     }
 
     /**
-     * The successor states/boards for the current state will be a list of all possible next moves. We will limit the
+     * The successor states/boards for the current state will be the list of all possible next moves. We will limit the
      * number of moves by only allowing one queen to be moved at a time. Queens will be locked into their assigned
      * columns and then the n-1 row positions will be considered as possible moves(ignore its initial row position). For
      * each queen/column we will generate n-1 new states/boards. This means we will have n * (n-1) successors(branching
@@ -79,16 +79,16 @@ public class NQueensProblem implements IHillClimbProblem {
                 // Modify Board To Represent Moving The Current Queen To The Current Row
                 newBoard[queen] = row;
 
-                nextStates.add(new NQueensProblem(newBoard));
+                nextStates.add(new NQueens(newBoard));
             }
 
         return nextStates;
     }
 
     /**
-     * Returns the NQueensProblem board's assigned score
+     * Returns the NQueens's board assigned score
      *
-     * @return the NQueensProblem's board score
+     * @return the NQueens's board score
      */
     @Override
     public double getScore() {
@@ -96,7 +96,7 @@ public class NQueensProblem implements IHillClimbProblem {
     }
 
     /**
-     * Assigns NQueensProblem's board a score.
+     * Assigns the NQueen's board a score.
      *
      * @param score the score to be assigned
      */
@@ -106,18 +106,17 @@ public class NQueensProblem implements IHillClimbProblem {
     }
 
     /**
-     * Returns the array that represents the NQueensProblem's board. Each array cell represents a column and the number
+     * Returns the array that represents the NQueens's board. Each array cell represents a column and the number
      * stored in that cell represents the row the queen occupies.
      *
-     * @return the NQueensProblem board
+     * @return the NQueen's board
      */
     public int[] getBoard() {
         return this.board;
     }
 
     /**
-     * Converts the NQueensProblem's board/state into a string. Q will represent queens and * will represent empty
-     * board spaces.
+     * Converts the NQueens's board into a string. Q will represent queens and * will represent empty board spaces.
      *
      * @return string representation of the NQueensIndividual's board
      */
@@ -135,23 +134,23 @@ public class NQueensProblem implements IHillClimbProblem {
     }
 
     /**
-     * Compares the board of the current NQueensProblem with another.
+     * Compares the board of the current NQueen with another.
      *
-     * @param obj NQueensProblem to compare with
-     * @return true if two NQueensProblems have the same board
+     * @param obj NQueens to compare with
+     * @return true if two NQueen have the same board
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj != null && obj instanceof NQueensProblem)
-            return Arrays.equals(this.board, ((NQueensProblem) obj).getBoard());
+        if (obj != null && obj instanceof NQueens)
+            return Arrays.equals(this.board, ((NQueens) obj).getBoard());
 
         return false;
     }
 
     /**
-     * Generates a hashcode for a NQueensProblem, this hash code is based off the board.
+     * Generates a hashcode for the NQueen, this hash code is based off the board.
      *
-     * @return hashcode for NQueensProblem
+     * @return hashcode for NQueens
      */
     @Override
     public int hashCode(){

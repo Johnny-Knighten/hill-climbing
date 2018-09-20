@@ -1,5 +1,5 @@
 package interfaces;
 
-public interface IHillClimbProbHelper {
+public interface IHillClimbProbGenerator {
     IHillClimbProblem randomState();
 }

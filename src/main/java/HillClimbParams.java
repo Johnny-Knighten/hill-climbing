@@ -36,8 +36,8 @@ public class HillClimbParams {
     }
 
     /**
-     * Sets the parameter that indicates minimization should be performed. The default is maximization. Note: if minimization
-     * is selected and the default goal score is not changed, then the goal score is automatically set to
+     * Sets the parameter that indicates minimization should be performed. The default is maximization. Note: if
+     * minimization is selected and the default goal score is not changed, then the goal score is automatically set to
      * Integer.MAX_VALUE.
      *
      * @param minimization true if hill climbing is to minimize
@@ -67,4 +67,5 @@ public class HillClimbParams {
     public void setMaxIterations(int maxIterations) {
         this.maxIterations = maxIterations;
     }
+
 }
