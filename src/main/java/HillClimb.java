@@ -40,7 +40,7 @@ public class HillClimb {
             for(IHillClimbSolution state: nextStates)
                 state.setScore(state.scoreState());
 
-            IHillClimbSolution bestNextState = getBestNextState(nextStates);
+            IHillClimbSolution bestNextState = getBestSolution(nextStates);
 
             // Check If We Hit Valley/Peak Otherwise Update Current And Continue
             if(!params.isMinimization())
@@ -61,7 +61,7 @@ public class HillClimb {
     }
 
     // Linear Run Over Next Possible States To Find The One With The Best Score
-    private IHillClimbSolution getBestNextState(List<IHillClimbSolution> nextStates) {
+    private IHillClimbSolution getBestSolution(List<IHillClimbSolution> nextStates) {
         IHillClimbSolution best = nextStates.get(0);
         for(int nextState=1; nextState<nextStates.size(); nextState++) {
             // If Ascending Check If Current IHillClimbProblems Has Higher Score The Current Best
