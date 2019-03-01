@@ -1,58 +1,41 @@
 # Hill Climbing
 
-This is a java based implementation of two different versions of the Hill Climbing local search/optimization algorithm:
-the classic Hill Climb and the Hill Climb With Random Restarts.
- 
-It is written in such a way that users implement the details about the potential solutions(state representation and 
-scoring method) used in the local search problem and the supplied implemented algorithms perform the local 
-search/optimization.
+This is a java based implementation of the hill climbing optimization algorithm. There are two versions of hill climbing
+that is implemented: classic Hill Climbing and Hill Climbing With Random Restarts. The code is written as a framework so
+the optimizers supplied can be used to solve a variety of problems.  Users simply need to create a class that represents
+their problem and implement a small set of methods.
 
-
-## Local Search/Optimization
-
-Local searches attempted to find an optimal solution from a set of potential solutions. Given an initial potential
-solution(random guess or educated guess) we generate a set of potential solutions by making local changes to the initial
-potential solution. We evaluate these new potential solutions and score them to determine how optimal they are. We then
-select the best potential solution(selecting best is dependent on the search algorithm). We then generate the next set
-of potential solutions from the best potential solution that was just found. The process of generating new potential
-solutions, scoring them, and selecting the best continues until a optimal solution is found or some termination 
-condition is met.
-
-
-## Hill Climbing and Hill Climbing With Random Restarts
-
-The Hill Climbing algorithm and its variants are probably the most simple local search algorithms. In Hill Climbing the
-the potential solution with the highest/lowest score is selected to continue the algorithm. Simply at each phase we 
-select the best then continue the search using the best.
-
-Normal Hill Climbing is very simple but suffers from two issues:
-1. Local Maxima/Minima
-2. Plateaus
-
-Since Hill Climbing only makes local changes it is possible that the algorithm will get stuck in a local maxima/minima.
-Local maxima/minimas are maximums or minimums that exist in a specified area but are not the global maximum or minimum.
-You can imagine a function that has two peaks with one higher that the other. Depending on your initial starting point, 
-it is possible that the algorithm will stop searching at the shorter peak. When the algorithm reaches a peak it can't
-continue because the next set of potential solutions will not be better than the current.
-
-Hill Climbing has a similar issue when a plateau is reached. When a plateau is reached at least one potential solutions 
-will have a score equal to the current optimal solution while the others are worse. Since the new potential solutions 
-are not better, then search will stop. If you are lucky the plateau will occur at the maximum/minimum, otherwise the
-algorithm will stop before finding the true maximum/minimum.
-
-To alleviate these problems a variant of Hill Climbing was created called Hill Climbing With Random Restarts. First,
-we introduce two termination conditions: a desired optimal value and a threshold on the number of iterations the 
-algorithm can run. Now when a solution is found with the desired optimal value the algorithms execution is stopped. If
-a maxima/minima or plateau is found(that's not the desired optimal value) we randomly create a new state and begin hill
-climbing at the new state. The best solution found over all searches is kept in case the desired optimal value is not
-found. Restarting the search with a new random state allows the Hill Climbing algorithm to escape getting stuck in local
-maxima/minima and plateaus.
+A brief overview of hill climbing and be found [here](https://github.com/JKnighten/hill-climbing/wiki/Hill-Climbing-Overview).
 
 
 ## How To Use
 
+This framework uses gradle to build javadocs and a JAR file containing the framework.
+
+### Building A JAR of The Framework
+
+Execute the following to generate a JAR file containing the framework:
+
+```
+./gradlew jar
+```
+
+The JAR file can be found in /build/libs/.
+
+### Building The javadocs For The Framework
+
+Execute the following to generate the javadocs for the framework:
+
+```
+./gradlew javadoc
+```
+
+The javadocs can be found in /out/javadoc/.
+
+### Creating Your Optimization Problem 
+
 The HillClimb and HillClimbRandRestart classes are responsible for performing the local search/optimization using the 
-respective algorithm they are named after. Both classes must be provided an initial state(potential solution) and a set
+respective algorithm they are named after. Both classes take in an initial state(potential solution) and a set
 of parameters used by the algorithms. Initial states(potential solutions) must be a class that implements 
 IHillClimbProblem. This means each problem you want to be solved with one of the Hill Climbing algorithms will be 
 represented by a class that implements IHillClimbProblem. The IHillClimbProblem has methods to score the state
@@ -68,7 +51,20 @@ Inorder to perform a local search using HillClimb or HillClimbRandRestart you mu
 4. Create an instance of HillClimb or HillClimbRandRestart
 5. Call the optimize() method on HillClimb or HillClimbRandRestart to being optimization 
 
-Below are some implemented local search problems to follow as examples.
+A quick abstract example on how to use the optimizer:
+```java
+HillClimbParams params = new HillClimbParams();
+params.setMinimization(true);
+params.setGoalScore(0);
+params.setMaxIterations(25);
+
+IHillClimbProblem initialState = new SomeProblem();
+
+HillClimb climber = new HillClimb(initialState, params);
+
+IHillClimbSolution optimal = climber.optimize();
+
+```
 
 
 ## Implemented Local Search Problems
