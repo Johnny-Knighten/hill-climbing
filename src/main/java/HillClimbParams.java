@@ -5,7 +5,6 @@
 public class HillClimbParams {
 
     private double goalScore = Integer.MAX_VALUE;
-    private boolean minimization = false;
     private int maxIterations = Integer.MAX_VALUE;
 
     /**
@@ -24,30 +23,6 @@ public class HillClimbParams {
      */
     public void setGoalScore(double goalScore) {
         this.goalScore = goalScore;
-    }
-
-    /**
-     * Returns true if hill climbing will be performing minimization.
-     *
-     * @return true if minimizing
-     */
-    public boolean isMinimization() {
-        return minimization;
-    }
-
-    /**
-     * Sets the parameter that indicates minimization should be performed. The default is maximization. Note: if
-     * minimization is selected and the default goal score is not changed, then the goal score is automatically set to
-     * Integer.MAX_VALUE.
-     *
-     * @param minimization true if hill climbing is to minimize
-     */
-    public void setMinimization(boolean minimization) {
-        this.minimization = minimization;
-
-        // Swap Default goalScore If Minimization Is Selected
-        if(minimization && goalScore == Integer.MAX_VALUE)
-            goalScore = Integer.MIN_VALUE;
     }
 
     /**
