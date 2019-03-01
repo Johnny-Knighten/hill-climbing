@@ -40,7 +40,6 @@ public class NQueensSolnGenerator implements IHillClimbSolnGenerator {
 
         // Create And Score New Random State
         NQueensSoln randomState = new NQueensSoln(queensPos);
-        randomState.setScore(randomState.scoreState());
         return randomState;
     }
 

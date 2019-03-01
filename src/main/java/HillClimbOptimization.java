@@ -1,8 +1,9 @@
+import interfaces.IHillClimbProblem;
 import interfaces.IHillClimbSolution;
 
 /**
- * Abstract class extended by HillClimb and HillClimbRandRestart. Stores the initial solution and optimizer solutions.
- * Has a method to check if a solution is the goal solution.
+ * Abstract class extended by HillClimb and HillClimbRandRestart. Stores the problem and optimizer parameters. Also has
+ * a method to check if a solution is the goal solution.
  */
 public abstract class HillClimbOptimization {
 
@@ -12,14 +13,14 @@ public abstract class HillClimbOptimization {
     private HillClimbParams params;
 
     /**
-     * The starting point used by the optimizer.
+     * The problem that is being solved with the optimizer.
      */
-    private IHillClimbSolution initialSolution;
+    private IHillClimbProblem problem;
 
     /**
-     * Beings the hill climbing process.
+     * Begins the hill climbing process.
      *
-     * @return the optimal solution found by the optimizer.
+     * @return the most optimal solution found by the optimizer
      */
     public abstract IHillClimbSolution optimize();
 
@@ -42,21 +43,21 @@ public abstract class HillClimbOptimization {
     }
 
     /**
-     * Gets the staring solution used by the optimizer.
+     * Gets the problem used by the optimizer.
      *
-     * @return the starting solution
+     * @return the problem
      */
-    public IHillClimbSolution getInitialSolution() {
-        return this.initialSolution;
+    public IHillClimbProblem getProblem() {
+        return this.problem;
     }
 
     /**
-     *  Sets the starting solution used by the optimizer.
+     *  Sets the problem used by the optimizer.
      *
-     * @param initialSolution the starting solution
+     * @param problem the problem
      */
-    public void setInitialSolution(IHillClimbSolution initialSolution) {
-        this.initialSolution = initialSolution;
+    public void setProblem(IHillClimbProblem problem) {
+        this.problem = problem;
     }
 
     /**
@@ -66,10 +67,10 @@ public abstract class HillClimbOptimization {
      * @return true if solution is the target false otherwise
      */
     public boolean isGoalScore(IHillClimbSolution solution) {
-        if(!this.params.isMinimization())
-            return solution.getScore() >= this.params.getGoalScore();
+        if(solution.getScore() == this.params.getGoalScore())
+            return true;
 
-        return solution.getScore() <= this.params.getGoalScore();
+        return false;
     }
 
 }

@@ -7,9 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * This is the representation of the nqueens problem. Contains the current positions of queens on the board; we make a
- * restriction that only one queen can be in a column. This allows the board/state to be represented by a one
- * dimensional array.
+ *
+ * This is the representation of a solution to the nqueens problem. Contains the current positions of queens on the
+ * board; we make a restriction that only one queen can be in a column. This allows the board/state to be represented by
+ * a one dimensional array.
  */
 public class NQueensSoln implements IHillClimbSolution {
 
@@ -29,9 +30,9 @@ public class NQueensSoln implements IHillClimbSolution {
     }
 
     /**
-     * Returns the NQueensSoln's board assigned score
+     * Returns the board's assigned score
      *
-     * @return the NQueensSoln's board score
+     * @return the solutions score
      */
     @Override
     public double getScore() {
@@ -39,9 +40,9 @@ public class NQueensSoln implements IHillClimbSolution {
     }
 
     /**
-     * Assigns the NQueen's board a score.
+     * Assigns the solution a score.
      *
-     * @param score the score to be assigned
+     * @param score the score to be assigned to the solution
      */
     @Override
     public void setScore(double score) {
@@ -49,43 +50,13 @@ public class NQueensSoln implements IHillClimbSolution {
     }
 
     /**
-     * Returns the array that represents the NQueensSoln's board. Each array cell represents a column and the number
-     * stored in that cell represents the row the queen occupies.
+     * Returns the array that represents the board. Each array cell represents a column and the number stored in that
+     * cell represents the row the queen occupies.
      *
      * @return the NQueen's board
      */
     public int[] getBoard() {
         return this.board;
-    }
-
-    /**
-     * To determine the value for the NQueensSoln board the total number of conflicts on the board will be used. Queens
-     * are in conflict if they can take one another(chess rules: same col/row or diagonal).
-     *
-     * @return the boards total number of conflicts
-     */
-    @Override
-    public double scoreState() {
-        // Initialize score to 0
-        int score = 0;
-
-        // We Iterate Over Every Queen Starting With The Far Left Queen
-        for(int queen = 0; queen < this.board.length; queen++){
-
-            // We Iterate Over Every Queen In Front Of The Queen Currently Being Evaluated
-            for(int remainingQueen=queen+1; remainingQueen<this.board.length; remainingQueen++){
-
-                // Check Row Conflict
-                if(this.board[queen] == this.board[remainingQueen])
-                    score++;
-
-                // Check Diagonal Conflict
-                if(Math.abs(this.board[queen]-this.board[remainingQueen]) == Math.abs(queen-remainingQueen))
-                    score++;
-            }
-        }
-
-        return  score;
     }
 
     /**
@@ -98,7 +69,7 @@ public class NQueensSoln implements IHillClimbSolution {
      * @return a list of all possible next moves/board states
      */
     @Override
-    public List<IHillClimbSolution> generateNextSolns() {
+    public List<IHillClimbSolution> generateNextSolutions() {
         ArrayList<IHillClimbSolution> nextStates = new ArrayList<>();
 
         // For Each Queen Iterate Over All Possible Row Moves(Ignoring Current Row Queen Is Positioned)
@@ -121,39 +92,6 @@ public class NQueensSoln implements IHillClimbSolution {
             }
 
         return nextStates;
-    }
-
-    /**
-     * Gets the best solution out of the list of possible solutions. For this problem the best solution is the one
-     * with the lowest score.
-     *
-     * @param possibleSolns list of possible solutions
-     * @return the solution with the lowest score
-     */
-    @Override
-    public IHillClimbSolution getBestSolution(List<IHillClimbSolution> possibleSolns) {
-        IHillClimbSolution best = possibleSolns.get(0);
-        for(int nextSoln=1; nextSoln < possibleSolns.size(); nextSoln++) {
-            if (best.getScore() > possibleSolns.get(nextSoln).getScore()) {
-                best = possibleSolns.get(nextSoln);
-            }
-        }
-
-        return best;
-    }
-
-    /**
-     * Compares the currentSoln with the object to determine if there is a valley or plateau.
-     *
-     * @param currentSoln the current solution
-     * @return true if currently in a valley or plateau, false otherwise
-     */
-    @Override
-    public boolean isPeakOrPlateau(IHillClimbSolution currentSoln) {
-        if(this.getScore() >= currentSoln.getScore())
-            return true;
-
-        return false;
     }
 
     /**

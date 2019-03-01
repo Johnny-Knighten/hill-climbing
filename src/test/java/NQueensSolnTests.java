@@ -67,31 +67,31 @@ public class NQueensSolnTests {
 
     @Test
     public void generateTwelveNextStates() {
-        List<IHillClimbSolution> nextStates = twelveNextStates.generateNextSolns();
+        List<IHillClimbSolution> nextStates = twelveNextStates.generateNextSolutions();
         Assert.assertEquals(12, nextStates.size(), 0.0001);
     }
 
     @Test
     public void generateTwentyNextStates() {
-        List<IHillClimbSolution> nextStates = twentyNextStates.generateNextSolns();
+        List<IHillClimbSolution> nextStates = twentyNextStates.generateNextSolutions();
         Assert.assertEquals(20, nextStates.size(), 0.0001);
     }
 
     @Test
     public void generateThirtyNextStates() {
-        List<IHillClimbSolution> nextStates = thirtyNextStates.generateNextSolns();
+        List<IHillClimbSolution> nextStates = thirtyNextStates.generateNextSolutions();
         Assert.assertEquals(30, nextStates.size(), 0.0001);
     }
 
     @Test
     public void generateFortyTwoNextStates() {
-        List<IHillClimbSolution> nextStates = fortyTwoNextStates.generateNextSolns();
+        List<IHillClimbSolution> nextStates = fortyTwoNextStates.generateNextSolutions();
         Assert.assertEquals(42, nextStates.size(), 0.0001);
     }
 
     @Test
     public void generateFiftySixNextStates() {
-        List<IHillClimbSolution> nextStates = fiftySixNextStates.generateNextSolns();
+        List<IHillClimbSolution> nextStates = fiftySixNextStates.generateNextSolutions();
         Assert.assertEquals(56, nextStates.size(), 0.0001);
     }
 
@@ -101,7 +101,7 @@ public class NQueensSolnTests {
 
     @Test
     public void ensureCorrectTwelveNextStates() {
-        List<IHillClimbSolution> nextStates = twelveNextStates.generateNextSolns();
+        List<IHillClimbSolution> nextStates = twelveNextStates.generateNextSolutions();
         Assert.assertTrue(nextStates.contains(new NQueensSoln(new int[]{1,1,2,3})));
         Assert.assertTrue(nextStates.contains(new NQueensSoln(new int[]{2,1,2,3})));
         Assert.assertTrue(nextStates.contains(new NQueensSoln(new int[]{3,1,2,3})));

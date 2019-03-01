@@ -1,4 +1,6 @@
+import interfaces.IHillClimbProblem;
 import interfaces.IHillClimbSolution;
+import nqueens.NQueensProblem;
 import nqueens.NQueensSoln;
 
 import java.util.List;
@@ -11,66 +13,68 @@ import java.util.List;
 public class HillClimb extends HillClimbOptimization {
 
     /**
-     * Creates an instance of HillClimb solving the supplied problems using the supplied parameters.
+     * Creates an instance of HillClimb solving the supplied problem using the supplied parameters.
      *
-     * @param initialSolution the starting solution of the problem
+     * @param problem the problem being solved by the optimizer
      * @param params parameters used by the optimizer
      */
-    public HillClimb(IHillClimbSolution initialSolution, HillClimbParams params) {
-        this.setInitialSolution(initialSolution);
+    public HillClimb(IHillClimbProblem problem, HillClimbParams params) {
+        this.setProblem(problem);
         this.setParams(params);
     }
 
     /**
-     * Starts the hill climbing process to find an optimal state.
+     * Starts the hill climbing process to find an optimal solution.
      *
-     * @return the most optimal state found
+     * @return the most optimal solution found
      */
     public IHillClimbSolution optimize() {
 
         // Make current The Initial Solution
-        IHillClimbSolution current = this.getInitialSolution();
-        current.setScore(current.scoreState());
+        IHillClimbSolution current = this.getProblem().getInitialGuess();
+        current.setScore(this.getProblem().scoreSolution(current));
 
         // Used To Mark a Valley or Peak
-        boolean isValleyOrPeak = false;
+        boolean isPeakOrPlateau = false;
 
         // Keep Track of The Number Of Iterations That Have Occurred
         int iterations = 0;
 
         do {
             // Generate Next Solutions
-            List<IHillClimbSolution> nextSolns = current.generateNextSolns();
+            List<IHillClimbSolution> nextSolutions = current.generateNextSolutions();
 
             // Score Each Next Solution
-            for(IHillClimbSolution state: nextSolns)
-                state.setScore(state.scoreState());
+            for(IHillClimbSolution solution: nextSolutions)
+                solution.setScore(this.getProblem().scoreSolution(solution));
 
             // Get The Best Next Solution
-            IHillClimbSolution bestNextSolution = current.getBestSolution(nextSolns);
+            IHillClimbSolution bestNextSolution = this.getProblem().getBestSolution(nextSolutions);
 
             // Check If We Hit Valley/Peak Or Plateau Otherwise Update Current And Continue
-             if(bestNextSolution.isPeakOrPlateau(current))
-                 isValleyOrPeak = true;
+             if(this.getProblem().isPeakOrPlateau(current, bestNextSolution))
+                 isPeakOrPlateau = true;
              else
                  current = bestNextSolution;
 
              // Update Number Of Iterations
              iterations++;
 
-        } while(!this.isGoalScore(current) && !isValleyOrPeak && iterations < this.getParams().getMaxIterations());
+        } while(!this.isGoalScore(current) && !isPeakOrPlateau && iterations < this.getParams().getMaxIterations());
 
         return current;
     }
 
     public static void main(String[] args) {
         HillClimbParams params = new HillClimbParams();
-        params.setMinimization(true);
         params.setGoalScore(0);
         params.setMaxIterations(100);
 
         NQueensSoln initialState = new NQueensSoln(new int[]{0,1,2,3,4,5,6,7});
-        HillClimb climber = new HillClimb(initialState, params);
+
+        NQueensProblem problem = new NQueensProblem(initialState);
+
+        HillClimb climber = new HillClimb(problem, params);
         IHillClimbSolution optimal = climber.optimize();
 
         System.out.println(optimal);

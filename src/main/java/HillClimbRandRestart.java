@@ -1,5 +1,7 @@
+import interfaces.IHillClimbProblem;
 import interfaces.IHillClimbSolnGenerator;
 import interfaces.IHillClimbSolution;
+import nqueens.NQueensProblem;
 import nqueens.NQueensSolnGenerator;
 
 import java.util.List;
@@ -17,49 +19,52 @@ public class HillClimbRandRestart extends HillClimbOptimization {
     private IHillClimbSolnGenerator generator;
 
     /**
-     * Creates an instance of HillClimbRandRestart solving the supplied problems using the supplied parameters.
+     * Creates an instance of HillClimbRandRestart solving the supplied problem using the supplied parameters. A
+     * IHillClimbSolnGenerator is provided to generate random solutions when a restart occurs.
      *
-     * @param initialSolution the starting solution of the problem
+     * @param problem the problem being optimized
      * @param params parameters used by the optimizer
      * @param generator used to generate random solutions
      */
-    public HillClimbRandRestart(IHillClimbSolution initialSolution, HillClimbParams params, IHillClimbSolnGenerator generator) {
-        this.setInitialSolution(initialSolution);
+    public HillClimbRandRestart(IHillClimbProblem problem, HillClimbParams params, IHillClimbSolnGenerator generator) {
+        this.setProblem(problem);
         this.setParams(params);
         this.generator = generator;
     }
 
     /**
-     * Starts the hill climbing process to find an optimal state.
+     *  Starts the hill climbing process to find an optimal solution.
      *
-     * @return the most optimal state found
+     * @return the most optimal solution found
      */
     public IHillClimbSolution optimize() {
         // Make current The Initial State
-        IHillClimbSolution current = this.getInitialSolution();
-        IHillClimbSolution bestSoFar =  this.getInitialSolution(); // Keeps the best state found over all restarts
-        current.setScore(current.scoreState());
+        IHillClimbSolution current = this.getProblem().getInitialGuess();
+        IHillClimbSolution bestSoFar =  this.getProblem().getInitialGuess();; // Keeps the best state found over all restarts
+        current.setScore(this.getProblem().scoreSolution(current));
 
         // Keep Track of The Number Of Iterations That Have Occurred
         int iterations = 0;
 
         do {
             // Generate Next Solutions
-            List<IHillClimbSolution> nextSolns = current.generateNextSolns();
+            List<IHillClimbSolution> nextSolutions = current.generateNextSolutions();
 
             // Score Each Next Solution
-            for(IHillClimbSolution state: nextSolns)
-                state.setScore(state.scoreState());
+            for(IHillClimbSolution solution: nextSolutions)
+                solution.setScore(this.getProblem().scoreSolution(solution));
 
             // Get The Best Next Solution
-            IHillClimbSolution bestNextSolution = current.getBestSolution(nextSolns);
+            IHillClimbSolution bestNextSolution = this.getProblem().getBestSolution(nextSolutions);
 
 
             // Check If We Hit Valley/Peak or Plateau then Random Restart Otherwise Update Current And Continue
-            if(bestNextSolution.isPeakOrPlateau(current)) {
-                current = generator.randomSolution();
+            if(this.getProblem().isPeakOrPlateau(current, bestNextSolution)) {
+                current = this.generator.randomSolution();
+                current.setScore(this.getProblem().scoreSolution(current));
                 if(current.getScore() > bestSoFar.getScore())
                     bestSoFar = current;
+
             } else {
                 current = bestNextSolution;
                 bestSoFar = current;
@@ -75,14 +80,16 @@ public class HillClimbRandRestart extends HillClimbOptimization {
 
     public static void main(String args[]) {
         HillClimbParams params = new HillClimbParams();
-        params.setMinimization(true);
         params.setGoalScore(0);
         params.setMaxIterations(1000);
 
         NQueensSolnGenerator generator = new NQueensSolnGenerator(8, 0);
 
         IHillClimbSolution initialState = generator.randomSolution();
-        HillClimbRandRestart climber = new HillClimbRandRestart(initialState, params, generator);
+
+        NQueensProblem problem = new NQueensProblem(initialState);
+
+        HillClimbRandRestart climber = new HillClimbRandRestart(problem, params, generator);
         IHillClimbSolution optimal = climber.optimize();
 
         System.out.println(optimal);
