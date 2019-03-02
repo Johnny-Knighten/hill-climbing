@@ -1,7 +1,7 @@
-package nqueens;
+package com.knighten.ai.hillclimb.nqueens;
 
-import interfaces.IHillClimbSolnGenerator;
-import interfaces.IHillClimbSolution;
+import com.knighten.ai.hillclimb.interfaces.IHillClimbSolnGenerator;
+import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
 
 import java.util.Random;
 

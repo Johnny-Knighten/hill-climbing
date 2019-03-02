@@ -1,4 +1,5 @@
-package interfaces;
+package com.knighten.ai.hillclimb.interfaces;
+
 
 import java.util.List;
 

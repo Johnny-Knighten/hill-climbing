@@ -1,5 +1,7 @@
-import nqueens.NQueensProblem;
-import nqueens.NQueensSoln;
+package nqueens;
+
+import com.knighten.ai.hillclimb.nqueens.NQueensProblem;
+import com.knighten.ai.hillclimb.nqueens.NQueensSoln;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

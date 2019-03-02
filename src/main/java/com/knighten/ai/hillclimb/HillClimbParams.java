@@ -1,3 +1,6 @@
+package com.knighten.ai.hillclimb;
+
+
 /**
  * Contains parameters used by HillCLimb. Has parameters to control: termination when specific score is found, if hill
  * climbing is performing minimization or maximization, and to limit the number of iterations hill climbing can run.

@@ -1,5 +1,7 @@
-import interfaces.IHillClimbSolution;
-import nqueens.NQueensSolnGenerator;
+package nqueens;
+
+import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
+import com.knighten.ai.hillclimb.nqueens.NQueensSolnGenerator;
 import org.junit.Assert;
 import org.junit.Test;
 

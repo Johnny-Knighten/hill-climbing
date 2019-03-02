@@ -1,5 +1,8 @@
-import interfaces.IHillClimbProblem;
-import interfaces.IHillClimbSolution;
+package com.knighten.ai.hillclimb;
+
+
+import com.knighten.ai.hillclimb.interfaces.IHillClimbProblem;
+import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
 
 /**
  * Abstract class extended by HillClimb and HillClimbRandRestart. Stores the problem and optimizer parameters. Also has

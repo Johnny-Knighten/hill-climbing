@@ -1,6 +1,6 @@
-package nqueens;
+package com.knighten.ai.hillclimb.nqueens;
 
-import interfaces.IHillClimbSolution;
+import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
 
 import java.util.ArrayList;
 import java.util.Arrays;

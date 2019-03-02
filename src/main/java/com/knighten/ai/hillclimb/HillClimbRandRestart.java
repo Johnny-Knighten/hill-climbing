@@ -1,8 +1,10 @@
-import interfaces.IHillClimbProblem;
-import interfaces.IHillClimbSolnGenerator;
-import interfaces.IHillClimbSolution;
-import nqueens.NQueensProblem;
-import nqueens.NQueensSolnGenerator;
+package com.knighten.ai.hillclimb;
+
+import com.knighten.ai.hillclimb.interfaces.IHillClimbProblem;
+import com.knighten.ai.hillclimb.interfaces.IHillClimbSolnGenerator;
+import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
+import com.knighten.ai.hillclimb.nqueens.NQueensProblem;
+import com.knighten.ai.hillclimb.nqueens.NQueensSolnGenerator;
 
 import java.util.List;
 

@@ -1,23 +1,27 @@
-import interfaces.IHillClimbProblem;
-import interfaces.IHillClimbSolution;
-import nqueens.NQueensProblem;
-import nqueens.NQueensSoln;
-import nqueens.NQueensSolnGenerator;
+package baseclasses;
+
+import com.knighten.ai.hillclimb.HillClimb;
+import com.knighten.ai.hillclimb.HillClimbParams;
+import com.knighten.ai.hillclimb.interfaces.IHillClimbProblem;
+import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
+import com.knighten.ai.hillclimb.nqueens.NQueensProblem;
+import com.knighten.ai.hillclimb.nqueens.NQueensSoln;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class HillClimbRandRestartTests {
+public class HillClimbTests {
 
     private HillClimbParams mockParams;
     private IHillClimbProblem mockProblem;
+
 
     @Before
     public void setup() {
         mockParams = Mockito.mock(HillClimbParams.class);
         Mockito.when(mockParams.getGoalScore()).thenReturn(0.0);
-        Mockito.when(mockParams.getMaxIterations()).thenReturn(100);
+        Mockito.when(mockParams.getMaxIterations()).thenReturn(50);
 
         mockProblem = Mockito.mock(IHillClimbProblem.class);
     }
@@ -36,14 +40,10 @@ public class HillClimbRandRestartTests {
         new HillClimb(mockProblem, null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void constructorNullGenerator() {
-        new HillClimb(mockProblem, null);
-    }
-
     ////////////////////
     // Method Testing //
     ////////////////////
+
 
 
     ///////////////////////////
@@ -51,26 +51,24 @@ public class HillClimbRandRestartTests {
     ///////////////////////////
 
     @Test
-    public void fourQueensMinimize() {
+    public void fourQueens() {
         NQueensSoln initialState = new NQueensSoln(new int[]{0,1,2,3});
         NQueensProblem problem = new NQueensProblem(initialState);
-        NQueensSolnGenerator generator = new NQueensSolnGenerator(4, 0);
-        HillClimbRandRestart climber = new HillClimbRandRestart(problem, mockParams , generator);
+        HillClimb climber = new HillClimb(problem, mockParams);
         IHillClimbSolution solution = climber.optimize();
 
-        Assert.assertEquals(0, solution.getScore(), 00000.1);
+        Assert.assertEquals(2, solution.getScore(), 0.00001);
     }
 
 
     @Test
-    public void eightQueensMinimize() {
+    public void eightQueens() {
         NQueensSoln initialState = new NQueensSoln(new int[]{0,1,2,3,4,5,6,7});
         NQueensProblem problem = new NQueensProblem(initialState);
-        NQueensSolnGenerator generator = new NQueensSolnGenerator(8, 0);
-        HillClimbRandRestart climber = new HillClimbRandRestart(problem, mockParams , generator);
+        HillClimb climber = new HillClimb(problem, mockParams);
         IHillClimbSolution solution = climber.optimize();
 
-        Assert.assertEquals(0, solution.getScore(), 00000.1);
+        Assert.assertEquals(1, solution.getScore(), 0.00001);
     }
 
 }

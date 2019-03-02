@@ -1,3 +1,6 @@
+package baseclasses;
+
+import com.knighten.ai.hillclimb.HillClimbParams;
 import org.junit.Test;
 
 public class HillClimbParamsTests {
