@@ -71,7 +71,8 @@ public class HillClimb extends HillClimbOptimization {
              // Update Number Of Iterations
              iterations++;
 
-        } while(!this.isGoalScore(current) && !isPeakOrPlateau && iterations < this.getParams().getMaxIterations());
+        } while(current.getScore() != this.getParams().getGoalScore() && !isPeakOrPlateau &&
+                iterations < this.getParams().getMaxIterations());
 
         return current;
     }

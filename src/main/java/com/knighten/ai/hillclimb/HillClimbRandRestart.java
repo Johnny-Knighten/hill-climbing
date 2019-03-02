@@ -52,7 +52,7 @@ public class HillClimbRandRestart extends HillClimbOptimization {
     public IHillClimbSolution optimize() {
         // Make current The Initial State
         IHillClimbSolution current = this.getProblem().getInitialGuess();
-        IHillClimbSolution bestSoFar =  this.getProblem().getInitialGuess();; // Keeps the best state found over all restarts
+        IHillClimbSolution bestSoFar = current; // Keeps the best state found over all restarts
         current.setScore(this.getProblem().scoreSolution(current));
 
         // Keep Track of The Number Of Iterations That Have Occurred
@@ -85,7 +85,7 @@ public class HillClimbRandRestart extends HillClimbOptimization {
             // Update Number Of Iterations
             iterations++;
 
-        } while(!this.isGoalScore(current) && iterations < this.getParams().getMaxIterations());
+        } while(current.getScore() != this.getParams().getGoalScore() && iterations < this.getParams().getMaxIterations());
 
         return bestSoFar;
     }

@@ -63,17 +63,5 @@ public abstract class HillClimbOptimization {
         this.problem = problem;
     }
 
-    /**
-     * Checks if the solution is the target solution.
-     *
-     * @param solution the solution to check
-     * @return true if solution is the target false otherwise
-     */
-    public boolean isGoalScore(IHillClimbSolution solution) {
-        if(solution.getScore() == this.params.getGoalScore())
-            return true;
-
-        return false;
-    }
 
 }
