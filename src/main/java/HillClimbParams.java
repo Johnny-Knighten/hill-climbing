@@ -22,6 +22,10 @@ public class HillClimbParams {
      * @param goalScore the early termination score
      */
     public void setGoalScore(double goalScore) {
+
+        if(Double.isNaN(goalScore))
+            throw new IllegalArgumentException("Goal Score Cannot Be NaN");
+
         this.goalScore = goalScore;
     }
 
@@ -40,6 +44,10 @@ public class HillClimbParams {
      * @param maxIterations the max number of iterations to run
      */
     public void setMaxIterations(int maxIterations) {
+
+        if(maxIterations < 1)
+            throw new IllegalArgumentException("Max Iterations Must Be Greater Than 0");
+
         this.maxIterations = maxIterations;
     }
 

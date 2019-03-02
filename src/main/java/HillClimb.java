@@ -19,6 +19,13 @@ public class HillClimb extends HillClimbOptimization {
      * @param params parameters used by the optimizer
      */
     public HillClimb(IHillClimbProblem problem, HillClimbParams params) {
+
+        if(problem == null)
+            throw new IllegalArgumentException("Problem Object Cannot Be Null");
+
+        if(params == null)
+            throw new IllegalArgumentException("Optimizer Parameters Object Cannot Be Null");
+
         this.setProblem(problem);
         this.setParams(params);
     }

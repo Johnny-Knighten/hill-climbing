@@ -8,10 +8,7 @@ import java.util.List;
 
 public class NQueensSolnTests {
 
-    private NQueensSoln zeroConflictBoard;
-    private NQueensSoln oneConflictBoard;
-    private NQueensSoln threeConflictBoard;
-    private NQueensSoln maxConflictBoard;
+
 
     private NQueensSoln twelveNextStates;
     private NQueensSoln twentyNextStates;
@@ -21,11 +18,6 @@ public class NQueensSolnTests {
 
     @Before
     public void setup() {
-        zeroConflictBoard = new NQueensSoln(new int[]{4,2,0,6,1,7,5,3});
-        oneConflictBoard = new NQueensSoln(new int[]{0,1});
-        threeConflictBoard = new NQueensSoln(new int[]{4,2,0,6,1,6,5,3});
-        maxConflictBoard = new NQueensSoln(new int[]{0,1,2,3,4,5,6,7});
-
         twelveNextStates = new NQueensSoln(new int[]{0,1,2,3});
         twentyNextStates = new NQueensSoln(new int[]{0,1,2,3,4});
         thirtyNextStates = new NQueensSoln(new int[]{0,1,2,3,4,5});
@@ -37,29 +29,7 @@ public class NQueensSolnTests {
     // Scoring Method Tests //
     //////////////////////////
 
-    @Test
-    public void scoreBoardWithZeroConflict() {
-        double score = zeroConflictBoard.scoreState();
-        Assert.assertEquals(0.0, score, 0.0001);
-    }
 
-    @Test
-    public void scoreBoardWithOneConflict() {
-        double score = oneConflictBoard.scoreState();
-        Assert.assertEquals(1.0, score, 0.0001);
-    }
-
-    @Test
-    public void scoreBoardWithThreeConflict() {
-        double score = threeConflictBoard.scoreState();
-        Assert.assertEquals(3.0, score, 0.0001);
-    }
-
-    @Test
-    public void scoreBoardWithMaxConflict() {
-        double score = maxConflictBoard.scoreState();
-        Assert.assertEquals(28, score, 0.0001);
-    }
 
     ////////////////////////////////////////
     // Next State Generation Method Tests //

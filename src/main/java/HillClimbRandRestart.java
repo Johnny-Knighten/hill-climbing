@@ -27,6 +27,16 @@ public class HillClimbRandRestart extends HillClimbOptimization {
      * @param generator used to generate random solutions
      */
     public HillClimbRandRestart(IHillClimbProblem problem, HillClimbParams params, IHillClimbSolnGenerator generator) {
+
+        if(problem == null)
+            throw new IllegalArgumentException("Problem Object Cannot Be Null");
+
+        if(params == null)
+            throw new IllegalArgumentException("Optimizer Parameters Object Cannot Be Null");
+
+        if(generator == null)
+            throw new IllegalArgumentException(" Solution Generator Object Cannot Be Null");
+
         this.setProblem(problem);
         this.setParams(params);
         this.generator = generator;
