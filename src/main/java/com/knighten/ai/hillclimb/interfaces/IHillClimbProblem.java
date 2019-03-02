@@ -9,21 +9,16 @@ import java.util.List;
 public interface IHillClimbProblem {
 
     /**
-     * Gets the initial guess at solution of the problem, this is an initial solution.
+     * Gets the initial guess at solution of the problem, this is an initial solution. Should be set using a
+     * constructor.
      *
      * @return the initial solution the problem starts at
      */
     IHillClimbSolution getInitialGuess();
 
     /**
-     * Sets the initial guess at solution of the problem.
-     *
-     * @param initialGuess the initial solution the problem starts at
-     */
-    void setInitialGuess(IHillClimbSolution initialGuess);
-
-    /**
-     * Finds the most optimal solutions in the list.
+     * Finds the most optimal solutions in the list. This is put into an interface because some problems may be
+     * minimizing or maximizing.
      *
      * @param possibleSolns a list of possible solutions
      * @return the most optimal solution in the list
@@ -31,7 +26,8 @@ public interface IHillClimbProblem {
     IHillClimbSolution getBestSolution(List<IHillClimbSolution> possibleSolns);
 
     /**
-     * Checks if the algorithm has encountered a peak/valley or a plateau.
+     * Checks if the algorithm has encountered a peak/valley or a plateau. This is put into an interface because
+     * some problems may be minimizing or maximizing.
      *
      * @param currentSolution the current solution in the hill climb iteration
      * @param newSolution a solution generated from the current solution

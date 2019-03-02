@@ -21,7 +21,11 @@ public class NQueensProblem implements IHillClimbProblem {
      * @param initialGuess the solution the optimizer starts at
      */
     public NQueensProblem(IHillClimbSolution initialGuess) {
-        this.setInitialGuess(initialGuess);
+
+        if(initialGuess == null)
+            throw new IllegalArgumentException("Initial Guess Object Cannot Be Null");
+
+        this.initialGuess = initialGuess;
     }
 
     /**
@@ -34,15 +38,6 @@ public class NQueensProblem implements IHillClimbProblem {
         return initialGuess;
     }
 
-    /**
-     * Sets the initial guess.
-     *
-     * @param initialGuess the initial solution the problem starts at
-     */
-    @Override
-    public void setInitialGuess(IHillClimbSolution initialGuess) {
-        this.initialGuess = initialGuess;
-    }
 
     /**
      * Gets the best solution out of the list of possible solutions. For this problem the best solution is the one
@@ -71,10 +66,8 @@ public class NQueensProblem implements IHillClimbProblem {
      */
     @Override
     public boolean isPeakOrPlateau(IHillClimbSolution currentSolution, IHillClimbSolution newSolution) {
-        if(newSolution.getScore() >= currentSolution.getScore())
-            return true;
+        return newSolution.getScore() >= currentSolution.getScore();
 
-        return false;
     }
 
     /**
