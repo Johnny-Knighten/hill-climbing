@@ -9,6 +9,8 @@ import org.mockito.Mockito;
 
 import java.util.Random;
 
+import static org.mockito.ArgumentMatchers.anyInt;
+
 public class OneVarSolnGeneratorTests {
 
     private Random mockRandom;
@@ -16,7 +18,7 @@ public class OneVarSolnGeneratorTests {
     @Before
     public void setup() {
         mockRandom = Mockito.mock(Random.class);
-        Mockito.when(mockRandom.nextDouble()).thenReturn(0.50);
+        Mockito.when(mockRandom.nextInt(anyInt())).thenReturn(10);
     }
 
     ////////////////////////
@@ -104,10 +106,10 @@ public class OneVarSolnGeneratorTests {
     }
 
     @Test
-    public void randomSolutionValuesInRange() {
+    public void randomSolution100ValuesInRange() {
         OneVarSolnGenerator testObject =  new OneVarSolnGenerator(-1.0, 1.0, 0.1, new Random());
 
-        for(int i=0; i<25; i++) {
+        for(int i=0; i<100; i++) {
             OneVarSolution randomSolution = (OneVarSolution) testObject.randomSolution();
             Assert.assertTrue(randomSolution.getXValue() <= 1.0 && randomSolution.getXValue() >= -1);
         }

@@ -28,11 +28,13 @@ public class HillClimbRandRestartTests {
     private HillClimbParams mockParamsRealRuns;
     private IHillClimbProblem mockProblemNoPeak;
     private IHillClimbProblem mockProblemPeak;
-    private IHillClimbSolution mockSolution;
-    private IHillClimbSolution mockSolutionNextSolutions;
-    private IHillClimbSolution mockSolutionGenerated;
+    private IHillClimbProblem mockProblemMaxIteration;
+    private IHillClimbSolution mockSolutionIsGoal;
+    private IHillClimbSolution mockSolutionNotGoal;
+    private IHillClimbSolution mockSolutionReturnedByGenNextSolutions;
+    private IHillClimbSolution mockSolutionGeneratedByGenerator;
     private List mockList;
-    private Iterator mockIterator;
+    private Iterator mockIteratorOfMockList;
     private IHillClimbSolnGenerator mockGenerator;
 
 
@@ -42,32 +44,42 @@ public class HillClimbRandRestartTests {
         Mockito.when(mockParams.getGoalScore()).thenReturn(0.0);
         Mockito.when(mockParams.getMaxIterations()).thenReturn(0);
 
-        mockSolutionNextSolutions = Mockito.mock(IHillClimbSolution.class);
-        Mockito.when(mockSolutionNextSolutions.getScore()).thenReturn(1.0);
+        mockSolutionReturnedByGenNextSolutions = Mockito.mock(IHillClimbSolution.class);
 
         mockList = Mockito.mock(List.class);
-        mockIterator = Mockito.mock(Iterator.class);
-        Mockito.when(mockIterator.hasNext()).thenReturn(true, false);
-        Mockito.when(mockIterator.next()).thenReturn(mockSolutionNextSolutions);
-        Mockito.when(mockList.get(0)).thenReturn(mockSolutionNextSolutions);
-        Mockito.when(mockList.iterator()).thenReturn(mockIterator);
+        mockIteratorOfMockList = Mockito.mock(Iterator.class);
+        Mockito.when(mockIteratorOfMockList.hasNext()).thenReturn(true, false);
+        Mockito.when(mockIteratorOfMockList.next()).thenReturn(mockSolutionReturnedByGenNextSolutions);
+        Mockito.when(mockList.get(0)).thenReturn(mockSolutionReturnedByGenNextSolutions);
+        Mockito.when(mockList.iterator()).thenReturn(mockIteratorOfMockList);
 
-        mockSolution = Mockito.mock(IHillClimbSolution.class);
-        Mockito.when(mockSolution.generateNextSolutions()).thenReturn(mockList);
+
+        mockSolutionIsGoal = Mockito.mock(IHillClimbSolution.class);
+        Mockito.when(mockSolutionIsGoal.generateNextSolutions()).thenReturn(mockList);
+        Mockito.when(mockSolutionIsGoal.getScore()).thenReturn(0.0);
 
         mockProblemNoPeak = Mockito.mock(IHillClimbProblem.class);
-        Mockito.when(mockProblemNoPeak.getInitialGuess()).thenReturn(mockSolution);
-        Mockito.when(mockProblemNoPeak.getBestSolution(any())).thenReturn(mockSolutionNextSolutions);
+        Mockito.when(mockProblemNoPeak.getInitialGuess()).thenReturn(mockSolutionIsGoal);
+        Mockito.when(mockProblemNoPeak.getBestSolution(any())).thenReturn(mockSolutionReturnedByGenNextSolutions);
         Mockito.when(mockProblemNoPeak.isPeakOrPlateau(any(), any())).thenReturn(false);
 
         mockProblemPeak = Mockito.mock(IHillClimbProblem.class);
-        Mockito.when(mockProblemPeak.getInitialGuess()).thenReturn(mockSolution);
-        Mockito.when(mockProblemPeak.getBestSolution(any())).thenReturn(mockSolutionNextSolutions);
+        Mockito.when(mockProblemPeak.getInitialGuess()).thenReturn(mockSolutionIsGoal);
+        Mockito.when(mockProblemPeak.getBestSolution(any())).thenReturn(mockSolutionReturnedByGenNextSolutions);
         Mockito.when(mockProblemPeak.isPeakOrPlateau(any(), any())).thenReturn(true);
 
-        mockSolutionGenerated = Mockito.mock(IHillClimbSolution.class);
+        mockSolutionNotGoal = Mockito.mock(IHillClimbSolution.class);
+        Mockito.when(mockSolutionNotGoal.generateNextSolutions()).thenReturn(mockList);
+        Mockito.when(mockSolutionNotGoal.getScore()).thenReturn(1.0);
+
+        mockProblemMaxIteration = Mockito.mock(IHillClimbProblem.class);
+        Mockito.when(mockProblemMaxIteration.getInitialGuess()).thenReturn(mockSolutionNotGoal);
+        Mockito.when(mockProblemMaxIteration.getBestSolution(any())).thenReturn(mockSolutionReturnedByGenNextSolutions);
+        Mockito.when(mockProblemMaxIteration.isPeakOrPlateau(any(), any())).thenReturn(false);
+
+        mockSolutionGeneratedByGenerator = Mockito.mock(IHillClimbSolution.class);
         mockGenerator = Mockito.mock(IHillClimbSolnGenerator.class);
-        Mockito.when(mockGenerator.randomSolution()).thenReturn(mockSolutionGenerated);
+        Mockito.when(mockGenerator.randomSolution()).thenReturn(mockSolutionGeneratedByGenerator);
 
         mockParamsRealRuns = Mockito.mock(HillClimbParams.class);
         Mockito.when(mockParamsRealRuns.getGoalScore()).thenReturn(0.0);
@@ -99,7 +111,7 @@ public class HillClimbRandRestartTests {
     ////////////////////
 
     @Test
-    public void optimizeOneIterationNoPeak() {
+    public void optimizeOneIterationNoPeakGoalScoreFound() {
         HillClimbRandRestart testObject = new HillClimbRandRestart(mockProblemNoPeak, mockParams, mockGenerator);
         testObject.optimize();
 
@@ -107,30 +119,31 @@ public class HillClimbRandRestartTests {
         verify(mockProblemNoPeak, times(1)).getInitialGuess();
 
         // Initial Guess Score Is Calculated And Stored
-        verify(mockSolution, times(1)).setScore(anyDouble());
-        verify(mockProblemNoPeak, times(1)).scoreSolution(mockSolution);
+        verify(mockSolutionIsGoal, times(1)).setScore(anyDouble());
+        verify(mockProblemNoPeak, times(1)).scoreSolution(mockSolutionIsGoal);
+
+        // Check If Current Is Better Than Best
+        verify(mockProblemNoPeak, times(1)).currentBetterThanBest(mockSolutionIsGoal, mockSolutionIsGoal);
 
         // Generate Next Possible Solutions
-        verify(mockSolution, times(1)).generateNextSolutions();
+        verify(mockSolutionIsGoal, times(1)).generateNextSolutions();
 
         // Next Possible Solutions Scores Are Set
-        verify(mockSolutionNextSolutions, times(1)).setScore(anyDouble());
+        verify(mockSolutionReturnedByGenNextSolutions, times(1)).setScore(anyDouble());
 
         // Best Solution Is Retrieved
         verify(mockProblemNoPeak, times(1)).getBestSolution(mockList);
 
         // Ensure Check For Peak Or Plateau
-        verify(mockProblemNoPeak, times(1)).isPeakOrPlateau(mockSolution, mockSolutionNextSolutions);
+        verify(mockProblemNoPeak, times(1)).isPeakOrPlateau(mockSolutionIsGoal, mockSolutionReturnedByGenNextSolutions);
 
         // Check Goal Score
         verify(mockParams, times(1)).getGoalScore();
 
-        // Check Max Iterations
-        verify(mockParams, times(1)).getMaxIterations();
     }
 
     @Test
-    public void optimizeOneIterationWithPeak() {
+    public void optimizeOneIterationWithPeakGoalScoreFound() {
         HillClimbRandRestart testObject = new HillClimbRandRestart(mockProblemPeak, mockParams, mockGenerator);
         testObject.optimize();
 
@@ -138,25 +151,64 @@ public class HillClimbRandRestartTests {
         verify(mockProblemPeak, times(1)).getInitialGuess();
 
         // Initial Guess Score Is Calculated And Stored
-        verify(mockSolution, times(1)).setScore(anyDouble());
-        verify(mockProblemPeak, times(1)).scoreSolution(mockSolution);
+        verify(mockSolutionIsGoal, times(1)).setScore(anyDouble());
+        verify(mockProblemPeak, times(1)).scoreSolution(mockSolutionIsGoal);
+
+        // Check If Current Is Better Than Best
+        verify(mockProblemPeak, times(1)).currentBetterThanBest(mockSolutionIsGoal, mockSolutionIsGoal);
 
         // Generate Next Possible Solutions
-        verify(mockSolution, times(1)).generateNextSolutions();
+        verify(mockSolutionIsGoal, times(1)).generateNextSolutions();
 
         // Next Possible Solutions Scores Are Set
-        verify(mockSolutionNextSolutions, times(1)).setScore(anyDouble());
+        verify(mockSolutionReturnedByGenNextSolutions, times(1)).setScore(anyDouble());
 
         // Best Solution Is Retrieved
         verify(mockProblemPeak, times(1)).getBestSolution(mockList);
 
         // Ensure Check For Peak Or Plateau
-        verify(mockProblemPeak, times(1)).isPeakOrPlateau(mockSolution, mockSolutionNextSolutions);
+        verify(mockProblemPeak, times(1)).isPeakOrPlateau(mockSolutionIsGoal, mockSolutionReturnedByGenNextSolutions);
+
+        // Random Restart Occurred
+        verify(mockGenerator, times(1)).randomSolution();
 
         // Check Goal Score
         verify(mockParams, times(1)).getGoalScore();
 
-        // Check Max Iterations - Not Called Since There Is A Peak
+    }
+
+    @Test
+    public void optimizeMaxIterationCheck() {
+        HillClimbRandRestart testObject = new HillClimbRandRestart(mockProblemMaxIteration, mockParams, mockGenerator);
+        testObject.optimize();
+
+        // Get Initial Guess At Beginning
+        verify(mockProblemMaxIteration, times(1)).getInitialGuess();
+
+        // Initial Guess Score Is Calculated And Stored
+        verify(mockSolutionNotGoal, times(1)).setScore(anyDouble());
+        verify(mockProblemMaxIteration, times(1)).scoreSolution(mockSolutionNotGoal);
+
+        // Check If Current Is Better Than Best
+        verify(mockProblemMaxIteration, times(1)).currentBetterThanBest(mockSolutionNotGoal, mockSolutionNotGoal);
+
+        // Generate Next Possible Solutions
+        verify(mockSolutionNotGoal, times(1)).generateNextSolutions();
+
+        // Next Possible Solutions Scores Are Set
+        verify(mockSolutionReturnedByGenNextSolutions, times(1)).setScore(anyDouble());
+
+        // Best Solution Is Retrieved
+        verify(mockProblemMaxIteration, times(1)).getBestSolution(mockList);
+
+        // Ensure Check For Peak Or Plateau
+        verify(mockProblemMaxIteration, times(1)).isPeakOrPlateau(mockSolutionNotGoal, mockSolutionReturnedByGenNextSolutions);
+
+        // Check Goal Score
+        verify(mockParams, times(1)).getGoalScore();
+
+        // Check Max Iterations
+        verify(mockParams, times(1)).getMaxIterations();
     }
 
     ///////////////////////////
