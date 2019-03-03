@@ -5,15 +5,44 @@ import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
 
 import java.util.Random;
 
+/**
+ * Generates random OneVarSolutions.
+ */
 public class OneVarSolnGenerator implements IHillClimbSolnGenerator {
 
+    /**
+     * The smallest value in the search range.
+     */
     private double minDomain;
+
+    /**
+     * The largest value in the search range.
+     */
     private double maxDomain;
+
+    /**
+     * The unit size that random x values are generated.
+     */
     private double stepSize;
+
+    /**
+     * The random object used to generate random numbers.
+     */
     private Random random;
 
+    /**
+     * The number of step size unites that fit in the search range.
+     */
     private int numberOfStepsInSearchRange;
 
+    /**
+     *  Creates an instance of a random OneVarSolution generator.
+     *
+     * @param minDomain the smallest number in the search range
+     * @param maxDomain the largest number in the search range
+     * @param stepSize the unit used to generate next solutions
+     * @param random used to generate random numbers
+     */
     public OneVarSolnGenerator(double minDomain, double maxDomain, double stepSize, Random random) {
 
         if(!Double.isFinite(minDomain))
@@ -55,6 +84,11 @@ public class OneVarSolnGenerator implements IHillClimbSolnGenerator {
         this.numberOfStepsInSearchRange = (int) Math.floor((maxDomain-minDomain)/stepSize);
     }
 
+    /**
+     * Generates a single random OneVarSolution.
+     *
+     * @return a random OneVarSolution
+     */
     @Override
     public IHillClimbSolution randomSolution() {
         double randomValue = this.minDomain + this.stepSize * this.random.nextInt(numberOfStepsInSearchRange+1);

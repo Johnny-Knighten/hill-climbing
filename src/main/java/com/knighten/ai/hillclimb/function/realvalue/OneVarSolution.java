@@ -5,15 +5,44 @@ import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a solution of minimizing a one var real valued function.
+ */
 public class OneVarSolution implements IHillClimbSolution {
 
+    /**
+     * The smallest value in the search range.
+     */
     private double minDomain;
+
+    /**
+     * The largest value in the search range.
+     */
     private double maxDomain;
+
+    /**
+     * The value of the function being optimized when the solution's x value is plugged in.
+     */
     private double score;
+
+    /**
+     * The solution's x value, the value used to score the solution.
+     */
     private double xValue;
+
+    /**
+     * The value used to generate the next possible solutions. This is added/subtracted from xValue.
+     */
     private double stepSize;
 
-
+    /**
+     * Creates a possible solution to the minimization of a one var real valued function.
+     *
+     * @param xValue the x value of the solution
+     * @param minDomain the smallest number in the search range
+     * @param maxDomain the largest number in the search range
+     * @param stepSize the unit used to generate next solutions
+     */
     public OneVarSolution(double xValue, double minDomain, double maxDomain, double stepSize) {
 
         if(!Double.isFinite(xValue))
@@ -52,15 +81,30 @@ public class OneVarSolution implements IHillClimbSolution {
         this.maxDomain = maxDomain;
     }
 
+    /**
+     * Gets the solution's x value.
+     *
+     * @return the solution's x value
+     */
     public double getXValue() {
         return xValue;
     }
 
+    /**
+     * Gets the solution's value when its x value is plugged into the function being minimized.
+     *
+     * @return the value of f(x)
+     */
     @Override
     public double getScore() {
         return this.score;
     }
 
+    /**
+     * Sets the solution's score, its value when its x value is plugged into the function being minimized.
+     *
+     * @param score the solutions value of f(x)
+     */
     @Override
     public void setScore(double score) {
 
@@ -70,6 +114,11 @@ public class OneVarSolution implements IHillClimbSolution {
         this.score = score;
     }
 
+    /**
+     * Generates the next set of solutions. This is the solutions's x value plus the set value and minus the x value.
+     *
+     * @return the list of next solutions
+     */
     @Override
     public List<IHillClimbSolution> generateNextSolutions() {
         List<IHillClimbSolution> list = new ArrayList<>();
@@ -85,9 +134,14 @@ public class OneVarSolution implements IHillClimbSolution {
         return list;
     }
 
+    /**
+     * Creates a string containing the solution's x value and f(x) value.
+     *
+     * @return string representation of the solution.
+     */
     @Override
     public String toString() {
-        return "X Value - " + this.getXValue();
+        return "X Value - " + this.getXValue() + "\nf(x) Value - " + this.getScore();
     }
 
 }

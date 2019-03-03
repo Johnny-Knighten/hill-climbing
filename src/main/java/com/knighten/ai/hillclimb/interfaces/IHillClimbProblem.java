@@ -9,7 +9,7 @@ import java.util.List;
 public interface IHillClimbProblem {
 
     /**
-     * Gets the initial guess at solution of the problem, this is an initial solution. Should be set using a
+     * Gets the initial guess at solution of the problem. Should be set using a
      * constructor.
      *
      * @return the initial solution the problem starts at
