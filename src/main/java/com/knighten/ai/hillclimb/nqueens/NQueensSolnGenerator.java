@@ -25,10 +25,10 @@ public class NQueensSolnGenerator implements IHillClimbSolnGenerator {
     }
 
     /**
-     * Generates random NQueensSoln object. Creates a random int array with values limited to a specific N, then creates
-     * a NQueensSoln. Will score the state before returning.
+     * Generates random NQueensSolution object. Creates a random int array with values limited to a specific N, then creates
+     * a NQueensSolution. Will score the state before returning.
      *
-     * @return a randomly generated NQueensSoln
+     * @return a randomly generated NQueensSolution
      */
     @Override
     public IHillClimbSolution randomSolution() {
@@ -39,7 +39,7 @@ public class NQueensSolnGenerator implements IHillClimbSolnGenerator {
             queensPos[queen] = rand.nextInt(this.n);
 
         // Create And Score New Random State
-        NQueensSoln randomState = new NQueensSoln(queensPos);
+        NQueensSolution randomState = new NQueensSolution(queensPos);
         return randomState;
     }
 

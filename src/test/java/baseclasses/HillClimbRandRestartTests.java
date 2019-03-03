@@ -6,7 +6,7 @@ import com.knighten.ai.hillclimb.interfaces.IHillClimbProblem;
 import com.knighten.ai.hillclimb.interfaces.IHillClimbSolnGenerator;
 import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
 import com.knighten.ai.hillclimb.nqueens.NQueensProblem;
-import com.knighten.ai.hillclimb.nqueens.NQueensSoln;
+import com.knighten.ai.hillclimb.nqueens.NQueensSolution;
 import com.knighten.ai.hillclimb.nqueens.NQueensSolnGenerator;
 import org.junit.Assert;
 import org.junit.Before;
@@ -157,14 +157,14 @@ public class HillClimbRandRestartTests {
 
         // Check Max Iterations - Not Called Since There Is A Peak
     }
-    
+
     ///////////////////////////
     // Actual Algorithm Runs //
     ///////////////////////////
 
     @Test
     public void fourQueensMinimize() {
-        NQueensSoln initialState = new NQueensSoln(new int[]{0,1,2,3});
+        NQueensSolution initialState = new NQueensSolution(new int[]{0,1,2,3});
         NQueensProblem problem = new NQueensProblem(initialState);
         NQueensSolnGenerator generator = new NQueensSolnGenerator(4, 0);
         HillClimbRandRestart climber = new HillClimbRandRestart(problem, mockParamsRealRuns , generator);
@@ -175,7 +175,7 @@ public class HillClimbRandRestartTests {
 
     @Test
     public void eightQueensMinimize() {
-        NQueensSoln initialState = new NQueensSoln(new int[]{0,1,2,3,4,5,6,7});
+        NQueensSolution initialState = new NQueensSolution(new int[]{0,1,2,3,4,5,6,7});
         NQueensProblem problem = new NQueensProblem(initialState);
         NQueensSolnGenerator generator = new NQueensSolnGenerator(8, 0);
         HillClimbRandRestart climber = new HillClimbRandRestart(problem, mockParamsRealRuns , generator);

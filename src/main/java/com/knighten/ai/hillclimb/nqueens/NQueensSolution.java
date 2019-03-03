@@ -5,6 +5,7 @@ import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  *
@@ -12,7 +13,7 @@ import java.util.List;
  * board; we make a restriction that only one queen can be in a column. This allows the board/state to be represented by
  * a one dimensional array.
  */
-public class NQueensSoln implements IHillClimbSolution {
+public class NQueensSolution implements IHillClimbSolution {
 
     /**
      * Represents the queen layout on the board. Each value represents the row the queen is on for that column(the first
@@ -25,7 +26,19 @@ public class NQueensSoln implements IHillClimbSolution {
      */
     private double score;
 
-    public NQueensSoln(int[] board) {
+    public NQueensSolution(int[] board) {
+
+        if(board == null)
+            throw new IllegalArgumentException("NQueens Board Object Cannot Be Null");
+
+        if(board.length <= 3)
+            throw new IllegalArgumentException("NQueens Boards Are Only Solvable When N Is Greater Than 3");
+
+        if(IntStream.range(0, board.length).anyMatch((i) -> board[i] < 0 || board[i] >= board.length))
+            throw new IllegalArgumentException("Values On The Board Must Be Between 0 And N-1");
+
+
+
         this.board = board;
     }
 
@@ -46,6 +59,10 @@ public class NQueensSoln implements IHillClimbSolution {
      */
     @Override
     public void setScore(double score) {
+
+        if(!Double.isFinite(score))
+            throw new IllegalArgumentException("A NQueens Score Cannot Be Infinity Or NaN");
+
         this.score = score;
     }
 
@@ -88,14 +105,14 @@ public class NQueensSoln implements IHillClimbSolution {
                 // Modify Board To Represent Moving The Current Queen To The Current Row
                 newBoard[queen] = row;
 
-                nextStates.add(new NQueensSoln(newBoard));
+                nextStates.add(new NQueensSolution(newBoard));
             }
 
         return nextStates;
     }
 
     /**
-     * Converts the NQueensSoln's board into a string. Q will represent queens and * will represent empty board spaces.
+     * Converts the NQueensSolution's board into a string. Q will represent queens and * will represent empty board spaces.
      *
      * @return string representation of the NQueensIndividual's board
      */
@@ -105,8 +122,10 @@ public class NQueensSoln implements IHillClimbSolution {
         for(int row = 0; row < this.board.length; row++) {
             for (int queenRowPos : this.board)
                 sb.append((queenRowPos == row) ? "Q " : "* ");
+
             // Start New Row
-            sb.append("\n");
+            if(row != (board.length-1))
+                sb.append("\n");
         }
 
         return sb.toString();
@@ -115,13 +134,13 @@ public class NQueensSoln implements IHillClimbSolution {
     /**
      * Compares the board of the current NQueen with another.
      *
-     * @param obj NQueensSoln to compare with
+     * @param obj NQueensSolution to compare with
      * @return true if two NQueen have the same board
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof NQueensSoln)
-            return Arrays.equals(this.board, ((NQueensSoln) obj).getBoard());
+        if (obj instanceof NQueensSolution)
+            return Arrays.equals(this.board, ((NQueensSolution) obj).getBoard());
 
         return false;
     }
@@ -129,7 +148,7 @@ public class NQueensSoln implements IHillClimbSolution {
     /**
      * Generates a hashcode for the NQueen, this hash code is based off the board.
      *
-     * @return hashcode for NQueensSoln
+     * @return hashcode for NQueensSolution
      */
     @Override
     public int hashCode(){

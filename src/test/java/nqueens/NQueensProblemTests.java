@@ -2,7 +2,7 @@ package nqueens;
 
 import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
 import com.knighten.ai.hillclimb.nqueens.NQueensProblem;
-import com.knighten.ai.hillclimb.nqueens.NQueensSoln;
+import com.knighten.ai.hillclimb.nqueens.NQueensSolution;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,13 +15,13 @@ import static org.mockito.Mockito.verify;
 
 public class NQueensProblemTests {
 
-    private NQueensSoln zeroConflictBoard;
-    private NQueensSoln oneConflictBoard;
-    private NQueensSoln threeConflictBoard;
-    private NQueensSoln maxConflictBoard;
+    private NQueensSolution zeroConflictBoard;
+    private NQueensSolution oneConflictBoard;
+    private NQueensSolution threeConflictBoard;
+    private NQueensSolution maxConflictBoard;
 
-    private NQueensSoln mockSolution;
-    private NQueensSoln mockSolution2;
+    private NQueensSolution mockSolution;
+    private NQueensSolution mockSolution2;
 
     private List mockListSize1;
     private List mockListSize2Ascending;
@@ -29,9 +29,9 @@ public class NQueensProblemTests {
 
     @Before
     public void setup() {
-        mockSolution = Mockito.mock(NQueensSoln.class);
+        mockSolution = Mockito.mock(NQueensSolution.class);
         Mockito.when(mockSolution.getScore()).thenReturn(1.0);
-        mockSolution2 = Mockito.mock(NQueensSoln.class);
+        mockSolution2 = Mockito.mock(NQueensSolution.class);
         Mockito.when(mockSolution2.getScore()).thenReturn(2.0);
 
         mockListSize1 = Mockito.mock(List.class);
@@ -48,10 +48,10 @@ public class NQueensProblemTests {
         Mockito.when(mockListSize2Descending.get(0)).thenReturn(mockSolution2);
         Mockito.when(mockListSize2Descending.get(1)).thenReturn(mockSolution);
 
-        zeroConflictBoard = new NQueensSoln(new int[]{4,2,0,6,1,7,5,3});
-        oneConflictBoard = new NQueensSoln(new int[]{0,1});
-        threeConflictBoard = new NQueensSoln(new int[]{4,2,0,6,1,6,5,3});
-        maxConflictBoard = new NQueensSoln(new int[]{0,1,2,3,4,5,6,7});
+        zeroConflictBoard = new NQueensSolution(new int[]{4,2,0,6,1,7,5,3});
+        oneConflictBoard = new NQueensSolution(new int[]{3, 3, 0, 2});
+        threeConflictBoard = new NQueensSolution(new int[]{4,2,0,6,1,6,5,3});
+        maxConflictBoard = new NQueensSolution(new int[]{0,1,2,3,4,5,6,7});
     }
 
     ////////////////////////

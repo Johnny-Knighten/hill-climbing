@@ -5,7 +5,7 @@ import com.knighten.ai.hillclimb.HillClimbParams;
 import com.knighten.ai.hillclimb.interfaces.IHillClimbProblem;
 import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
 import com.knighten.ai.hillclimb.nqueens.NQueensProblem;
-import com.knighten.ai.hillclimb.nqueens.NQueensSoln;
+import com.knighten.ai.hillclimb.nqueens.NQueensSolution;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -151,7 +151,7 @@ public class HillClimbTests {
 
     @Test
     public void fourQueens() {
-        NQueensSoln initialState = new NQueensSoln(new int[]{0,1,2,3});
+        NQueensSolution initialState = new NQueensSolution(new int[]{0,1,2,3});
         NQueensProblem problem = new NQueensProblem(initialState);
         HillClimb climber = new HillClimb(problem, mockParamsRealRuns);
         IHillClimbSolution solution = climber.optimize();
@@ -161,7 +161,7 @@ public class HillClimbTests {
 
     @Test
     public void eightQueens() {
-        NQueensSoln initialState = new NQueensSoln(new int[]{0,1,2,3,4,5,6,7});
+        NQueensSolution initialState = new NQueensSolution(new int[]{0,1,2,3,4,5,6,7});
         NQueensProblem problem = new NQueensProblem(initialState);
         HillClimb climber = new HillClimb(problem, mockParamsRealRuns);
         IHillClimbSolution solution = climber.optimize();

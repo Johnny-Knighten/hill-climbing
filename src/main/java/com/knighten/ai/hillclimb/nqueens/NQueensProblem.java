@@ -6,7 +6,7 @@ import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
 import java.util.List;
 
 /**
- * Represents the NQueens problem and the operations that can be applied to NQueensSoln.
+ * Represents the NQueens problem and the operations that can be applied to NQueensSolution.
  */
 public class NQueensProblem implements IHillClimbProblem {
 
@@ -71,7 +71,7 @@ public class NQueensProblem implements IHillClimbProblem {
     }
 
     /**
-     * To determine the value for the NQueensSoln board the total number of conflicts on the board will be used. Queens
+     * To determine the value for the NQueensSolution board the total number of conflicts on the board will be used. Queens
      * are in conflict if they can take one another(chess rules: same col/row or diagonal).
      *
      * @param solution the solution to be scored
@@ -80,7 +80,7 @@ public class NQueensProblem implements IHillClimbProblem {
     @Override
     public double scoreSolution(IHillClimbSolution solution) {
 
-        int[] board = ((NQueensSoln) solution).getBoard();
+        int[] board = ((NQueensSolution) solution).getBoard();
         // Initialize score to 0
         int score = 0;
 

@@ -5,7 +5,7 @@ import com.knighten.ai.hillclimb.nqueens.NQueensSolnGenerator;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class NQueensSolnGeneratorTests {
+public class NQueensSolutionGeneratorTests {
 
     @Test
     public void testSeedingGeneratesConsistentResults() {

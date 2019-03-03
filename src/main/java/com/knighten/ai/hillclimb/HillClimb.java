@@ -5,7 +5,7 @@ import com.knighten.ai.hillclimb.interfaces.IHillClimbProblem;
 import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
 
 import com.knighten.ai.hillclimb.nqueens.NQueensProblem;
-import com.knighten.ai.hillclimb.nqueens.NQueensSoln;
+import com.knighten.ai.hillclimb.nqueens.NQueensSolution;
 
 import java.util.List;
 
@@ -82,7 +82,7 @@ public class HillClimb extends HillClimbOptimizer {
         params.setGoalScore(0);
         params.setMaxIterations(100);
 
-        NQueensSoln initialState = new NQueensSoln(new int[]{0,1,2,3,4,5,6,7});
+        NQueensSolution initialState = new NQueensSolution(new int[]{0,1,2,3,4,5,6,7});
 
         NQueensProblem problem = new NQueensProblem(initialState);
 
