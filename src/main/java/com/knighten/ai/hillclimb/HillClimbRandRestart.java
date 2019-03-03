@@ -7,6 +7,7 @@ import com.knighten.ai.hillclimb.nqueens.NQueensProblem;
 import com.knighten.ai.hillclimb.nqueens.NQueensSolnGenerator;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * An implementation of the Hill Climbing With Random Restarts optimization algorithm. The optimal state is more likely
@@ -95,7 +96,9 @@ public class HillClimbRandRestart extends HillClimbOptimizer {
         params.setGoalScore(0);
         params.setMaxIterations(1000);
 
-        NQueensSolnGenerator generator = new NQueensSolnGenerator(8, 0);
+        Random random = new Random(0);
+
+        NQueensSolnGenerator generator = new NQueensSolnGenerator(8, random);
 
         IHillClimbSolution initialState = generator.randomSolution();
 

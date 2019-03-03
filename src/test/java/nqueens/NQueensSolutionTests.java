@@ -55,7 +55,7 @@ public class NQueensSolutionTests {
         NQueensSolution testObject = new NQueensSolution(new int[]{0, 1, 2, 3});
         testObject.setScore(Double.NaN);
     }
-    
+
     ////////////////////
     // Method Testing //
     ////////////////////
