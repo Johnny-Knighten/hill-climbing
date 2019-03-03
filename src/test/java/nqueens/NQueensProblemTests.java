@@ -68,7 +68,7 @@ public class NQueensProblemTests {
     ////////////////////
 
     @Test
-    public void getBestIndividualListOfSizeOne() {
+    public void getBestSolutionListOfSizeOne() {
         NQueensProblem testObject = new NQueensProblem(mockSolution);
         IHillClimbSolution result = testObject.getBestSolution(mockListSize1);
 
@@ -77,7 +77,7 @@ public class NQueensProblemTests {
     }
 
     @Test
-    public void getBestIndividualListOfSizeTwoAscending() {
+    public void getBestSolutionListOfSizeTwoAscending() {
         NQueensProblem testObject = new NQueensProblem(mockSolution);
         IHillClimbSolution result = testObject.getBestSolution(mockListSize2Ascending);
 
@@ -90,7 +90,7 @@ public class NQueensProblemTests {
     }
 
     @Test
-    public void getBestIndividualListOfSizeTwoDescending() {
+    public void getBestSolutionListOfSizeTwoDescending() {
         NQueensProblem testObject = new NQueensProblem(mockSolution);
         IHillClimbSolution result = testObject.getBestSolution(mockListSize2Descending);
 
@@ -125,6 +125,19 @@ public class NQueensProblemTests {
         boolean result = testObject.isPeakOrPlateau(mockSolution2, mockSolution);
 
         Assert.assertTrue(!result);
+    }
+
+    @Test
+    public void currentBetterThanBestNotBetter() {
+        NQueensProblem testObject = new NQueensProblem(mockSolution);
+
+        Assert.assertTrue(testObject.currentBetterThanBest(mockSolution, mockSolution2));
+    }
+
+    @Test
+    public void currentBetterThanBestBetter() {
+        NQueensProblem testObject = new NQueensProblem(mockSolution);
+        Assert.assertTrue(!testObject.currentBetterThanBest(mockSolution2, mockSolution));
     }
 
     @Test

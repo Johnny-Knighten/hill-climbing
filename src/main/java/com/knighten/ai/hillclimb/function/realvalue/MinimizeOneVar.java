@@ -16,6 +16,13 @@ public class MinimizeOneVar implements IHillClimbProblem {
     private IOneVariableFunction function;
 
     public MinimizeOneVar(IHillClimbSolution initialGuess, IOneVariableFunction function) {
+
+        if(initialGuess == null)
+            throw new IllegalArgumentException("Initial Guess Cannot Be Null");
+
+        if(function == null)
+            throw new IllegalArgumentException("Function Being Optimized Cannot Be Null");
+
         this.initialGuess = initialGuess;
         this.function = function;
     }
