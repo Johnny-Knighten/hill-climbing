@@ -50,8 +50,13 @@ public class OneVarSolnGenerator implements IHillClimbSolnGenerator {
         this.random = random;
     }
 
+    // TODO - Control Rounding With Param
     @Override
     public IHillClimbSolution randomSolution() {
-        return new OneVarSolution(this.minDomain + this.random.nextDouble() * (this.maxDomain - this.minDomain), stepSize);
+        double randomNotRounded = this.random.nextDouble() * (this.maxDomain - this.minDomain);
+        double roundedRandom = this.minDomain + Math.round(randomNotRounded * 100.0) / 100.0;
+
+        return new OneVarSolution(roundedRandom, minDomain, maxDomain, stepSize);
     }
+
 }

@@ -60,6 +60,11 @@ public class HillClimbRandRestart extends HillClimbOptimizer {
         int iterations = 0;
 
         do {
+
+            // Update BestSoFar If Current Is Better
+            if(this.getProblem().currentBetterThanBest(current, bestSoFar))
+                bestSoFar = current;
+
             // Generate Next Solutions
             List<IHillClimbSolution> nextSolutions = current.generateNextSolutions();
 
@@ -70,23 +75,19 @@ public class HillClimbRandRestart extends HillClimbOptimizer {
             // Get The Best Next Solution
             IHillClimbSolution bestNextSolution = this.getProblem().getBestSolution(nextSolutions);
 
-
-            // Check If We Hit Valley/Peak or Plateau then Random Restart Otherwise Update Current And Continue
+            // Check If We Hit Valley/Peak or Plateau If So Perform Random Restart Else Continue The Search
             if(this.getProblem().isPeakOrPlateau(current, bestNextSolution)) {
                 current = this.generator.randomSolution();
                 current.setScore(this.getProblem().scoreSolution(current));
-                if(current.getScore() > bestSoFar.getScore())
-                    bestSoFar = current;
 
             } else {
                 current = bestNextSolution;
-                bestSoFar = current;
             }
 
             // Update Number Of Iterations
             iterations++;
 
-        } while(current.getScore() != this.getParams().getGoalScore() && iterations < this.getParams().getMaxIterations());
+        } while(bestSoFar.getScore() != this.getParams().getGoalScore() && iterations < this.getParams().getMaxIterations());
 
         return bestSoFar;
     }
@@ -94,11 +95,11 @@ public class HillClimbRandRestart extends HillClimbOptimizer {
     public static void main(String args[]) {
         HillClimbParams params = new HillClimbParams();
         params.setGoalScore(0);
-        params.setMaxIterations(1000);
+        params.setMaxIterations(100000);
 
         Random random = new Random(0);
 
-        NQueensSolnGenerator generator = new NQueensSolnGenerator(8, random);
+        NQueensSolnGenerator generator = new NQueensSolnGenerator(24, random);
 
         IHillClimbSolution initialState = generator.randomSolution();
 

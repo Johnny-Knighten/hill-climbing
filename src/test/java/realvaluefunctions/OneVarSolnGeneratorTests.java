@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.Random;
-import java.util.stream.IntStream;
 
 public class OneVarSolnGeneratorTests {
 
@@ -101,7 +100,7 @@ public class OneVarSolnGeneratorTests {
     @Test
     public void randomSolutionGenerateSolutionCorrectValue() {
         OneVarSolnGenerator testObject =  new OneVarSolnGenerator(-1.0, 1.0, 0.1, mockRandom);
-        Assert.assertEquals(0.0, ((OneVarSolution) testObject.randomSolution()).getXValue(), .0001);
+        Assert.assertEquals(0.0, ((OneVarSolution) testObject.randomSolution()).getXValue(), .00001);
     }
 
     @Test

@@ -43,4 +43,6 @@ public interface IHillClimbProblem {
      */
     double scoreSolution(IHillClimbSolution solution);
 
+    boolean currentBetterThanBest(IHillClimbSolution current, IHillClimbSolution best);
+
 }

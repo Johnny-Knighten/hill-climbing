@@ -48,14 +48,14 @@ public class NQueensProblem implements IHillClimbProblem {
      */
     @Override
     public IHillClimbSolution getBestSolution(List<IHillClimbSolution> possibleSolns) {
-        IHillClimbSolution best = possibleSolns.get(0);
+        IHillClimbSolution min = possibleSolns.get(0);
         for(int nextSoln=1; nextSoln < possibleSolns.size(); nextSoln++) {
-            if (best.getScore() > possibleSolns.get(nextSoln).getScore()) {
-                best = possibleSolns.get(nextSoln);
+            if (min.getScore() > possibleSolns.get(nextSoln).getScore()) {
+                min = possibleSolns.get(nextSoln);
             }
         }
 
-        return best;
+        return min;
     }
 
     /**
@@ -101,6 +101,11 @@ public class NQueensProblem implements IHillClimbProblem {
         }
 
         return  score;
+    }
+
+    @Override
+    public boolean currentBetterThanBest(IHillClimbSolution current, IHillClimbSolution best) {
+        return current.getScore() < best.getScore();
     }
 
 }
