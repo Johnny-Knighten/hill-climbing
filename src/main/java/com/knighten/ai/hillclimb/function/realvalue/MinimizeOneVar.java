@@ -7,8 +7,6 @@ import com.knighten.ai.hillclimb.interfaces.IHillClimbProblem;
 import com.knighten.ai.hillclimb.interfaces.IHillClimbSolnGenerator;
 import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
 
-
-
 import java.util.List;
 import java.util.Random;
 
@@ -68,9 +66,9 @@ public class MinimizeOneVar implements IHillClimbProblem {
 
         IOneVariableFunction function = (x) -> 4*Math.pow(x, 6) - 5*Math.pow(x, 2) + x - 1;
 
-        IHillClimbSolution initialState = new OneVarSolution(2, -2, 2, .01);
+        IHillClimbSolution initialState = new OneVarSolution(2, -2, 2, .0001);
 
-        IHillClimbSolnGenerator generator = new OneVarSolnGenerator(-2, 2, .01, new Random());
+        IHillClimbSolnGenerator generator = new OneVarSolnGenerator(-2, 2, .0001, new Random());
         IHillClimbProblem problem = new MinimizeOneVar(initialState, function);
 
         HillClimbRandRestart climber = new HillClimbRandRestart(problem, params, generator);

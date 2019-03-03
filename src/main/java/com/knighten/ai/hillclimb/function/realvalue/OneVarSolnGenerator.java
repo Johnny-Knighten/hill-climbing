@@ -12,6 +12,8 @@ public class OneVarSolnGenerator implements IHillClimbSolnGenerator {
     private double stepSize;
     private Random random;
 
+    private int numberOfStepsInSearchRange;
+
     public OneVarSolnGenerator(double minDomain, double maxDomain, double stepSize, Random random) {
 
         if(!Double.isFinite(minDomain))
@@ -48,15 +50,15 @@ public class OneVarSolnGenerator implements IHillClimbSolnGenerator {
         this.maxDomain = maxDomain;
         this.stepSize = stepSize;
         this.random = random;
+
+        // We Will Get The Number Of Steps That Fit Into The SearchRanch To Be Used To Generate X Values
+        this.numberOfStepsInSearchRange = (int) Math.floor((maxDomain-minDomain)/stepSize);
     }
 
-    // TODO - Control Rounding With Param
     @Override
     public IHillClimbSolution randomSolution() {
-        double randomNotRounded = this.random.nextDouble() * (this.maxDomain - this.minDomain);
-        double roundedRandom = this.minDomain + Math.round(randomNotRounded * 100.0) / 100.0;
-
-        return new OneVarSolution(roundedRandom, minDomain, maxDomain, stepSize);
+        double randomValue = this.minDomain + this.stepSize * this.random.nextInt(numberOfStepsInSearchRange+1);
+        return new OneVarSolution(randomValue, minDomain, maxDomain, stepSize);
     }
 
 }
