@@ -1,6 +1,5 @@
 package nqueens;
 
-import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
 import com.knighten.ai.hillclimb.nqueens.NQueensSolnGenerator;
 import com.knighten.ai.hillclimb.nqueens.NQueensSolution;
 import org.junit.Assert;
@@ -28,10 +27,7 @@ public class NQueensSolutionGeneratorTests {
         new NQueensSolnGenerator(12, null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void constructorNIsLessThan4() {
-        new NQueensSolnGenerator(3, mockRandom);
-    }
+
 
     ////////////////////
     // Method Testing //
@@ -53,7 +49,7 @@ public class NQueensSolutionGeneratorTests {
 
         NQueensSolnGenerator testObjectSize256 = new NQueensSolnGenerator(256, mockRandom);
         NQueensSolution resultSize256 = (NQueensSolution) testObjectSize256.randomSolution();
-        
+
         Assert.assertEquals(4, resultSize4.getBoard().length);
         Assert.assertEquals(8, resultSize8.getBoard().length);
         Assert.assertEquals(12, resultSize12.getBoard().length);
