@@ -71,6 +71,19 @@ public class NQueensProblem implements IHillClimbProblem {
     }
 
     /**
+     * Determines if the current solution is better than the best found so far. We are minimizing so the current is
+     * better if it has a lower score than the best.
+     *
+     * @param current the current solution being operated on
+     * @param best the best solution found so far
+     * @return true if current has a lower score than best else false
+     */
+    @Override
+    public boolean currentBetterThanBest(IHillClimbSolution current, IHillClimbSolution best) {
+        return current.getScore() < best.getScore();
+    }
+
+    /**
      * To determine the value for the NQueensSolution board the total number of conflicts on the board will be used. Queens
      * are in conflict if they can take one another(chess rules: same col/row or diagonal).
      *
@@ -101,11 +114,6 @@ public class NQueensProblem implements IHillClimbProblem {
         }
 
         return  score;
-    }
-
-    @Override
-    public boolean currentBetterThanBest(IHillClimbSolution current, IHillClimbSolution best) {
-        return current.getScore() < best.getScore();
     }
 
 }

@@ -49,6 +49,14 @@ public class MinimizeOneVar implements IHillClimbProblem {
         return this.function.getFuncValue(((OneVarSolution) solution).getXValue());
     }
 
+    /**
+     * Determines if the current solutions is better than the best. Since we are minimizing the current is better if it
+     * has a lower score.
+     *
+     * @param current the current solution being operated on
+     * @param best the best solution found so far
+     * @return true if current has a lower score than best else false
+     */
     @Override
     public boolean currentBetterThanBest(IHillClimbSolution current, IHillClimbSolution best) {
         return current.getScore() < best.getScore();
