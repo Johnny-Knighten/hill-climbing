@@ -43,7 +43,6 @@ public interface IHillClimbProblem {
      */
     double scoreSolution(IHillClimbSolution solution);
 
-
     /**
      * Used by HillClimbRandRestart to determine if the solution currently being operated on is better than the best
      * found so far. Will return true if the current is better than the best and false otherwise. Each problem will
@@ -54,5 +53,13 @@ public interface IHillClimbProblem {
      * @return true if current is better than the best else false
      */
     boolean currentBetterThanBest(IHillClimbSolution current, IHillClimbSolution best);
+
+    /**
+     * Generates a list of the next set of potential solutions from a solution.
+     *
+     * @param solution solution used to generate next solutions
+     * @return list of possible next solutions
+     */
+    List<IHillClimbSolution> generateNextSolutions(IHillClimbSolution solution);
 
 }

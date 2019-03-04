@@ -3,6 +3,7 @@ package com.knighten.ai.hillclimb.nqueens;
 import com.knighten.ai.hillclimb.interfaces.IHillClimbProblem;
 import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -114,6 +115,43 @@ public class NQueensProblem implements IHillClimbProblem {
         }
 
         return  score;
+    }
+
+    /**
+     * The next potential solutions for the current solution will be the list of all possible next moves. We will limit
+     * the number of moves by only allowing one queen to be moved at a time. Queens will be locked into their assigned
+     * columns and then the n-1 row positions will be considered as possible moves(ignore its initial row position). For
+     * each queen/column we will generate n-1 new states/boards. This means we will have n * (n-1) successors(branching
+     * factor).
+     *
+     * @param solution solution used to generate the set of next solutions
+     * @return a list of all possible next moves/board states
+     */
+    @Override
+    public List<IHillClimbSolution> generateNextSolutions(IHillClimbSolution solution) {
+        NQueensSolution solutionAsNQueens = (NQueensSolution) solution;
+        ArrayList<IHillClimbSolution> nextStates = new ArrayList<>();
+
+        // For Each Queen Iterate Over All Possible Row Moves(Ignoring Current Row Queen Is Positioned)
+        for(int queen = 0; queen < solutionAsNQueens.getBoard().length; queen++)
+            // For Each Row Score Board If Current Queen Was Moved To The Row (Skip Row If Queen Is Already On That Row)
+            for(int row = 0; row < solutionAsNQueens.getBoard().length; row++){
+
+                // Skip Position If Queen Is Already In The Current Row
+                if(solutionAsNQueens.getBoard()[queen] == row)
+                    continue;
+
+                // Make Copy Of Current Board
+                int[] newBoard = new int[solutionAsNQueens.getBoard().length];
+                System.arraycopy(solutionAsNQueens.getBoard(), 0, newBoard, 0, solutionAsNQueens.getBoard().length );
+
+                // Modify Board To Represent Moving The Current Queen To The Current Row
+                newBoard[queen] = row;
+
+                nextStates.add(new NQueensSolution(newBoard));
+            }
+
+        return nextStates;
     }
 
 }

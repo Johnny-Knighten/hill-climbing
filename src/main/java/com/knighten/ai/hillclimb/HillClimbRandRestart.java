@@ -66,7 +66,7 @@ public class HillClimbRandRestart extends HillClimbOptimizer {
                 bestSoFar = current;
 
             // Generate Next Solutions
-            List<IHillClimbSolution> nextSolutions = current.generateNextSolutions();
+            List<IHillClimbSolution> nextSolutions = this.getProblem().generateNextSolutions(current);
 
             // Score Each Next Solution
             for(IHillClimbSolution solution: nextSolutions)

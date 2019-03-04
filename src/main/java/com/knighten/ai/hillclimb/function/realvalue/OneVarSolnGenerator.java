@@ -92,7 +92,7 @@ public class OneVarSolnGenerator implements IHillClimbSolnGenerator {
     @Override
     public IHillClimbSolution randomSolution() {
         double randomValue = this.minDomain + this.stepSize * this.random.nextInt(numberOfStepsInSearchRange+1);
-        return new OneVarSolution(randomValue, minDomain, maxDomain, stepSize);
+        return new OneVarSolution(randomValue);
     }
 
 }

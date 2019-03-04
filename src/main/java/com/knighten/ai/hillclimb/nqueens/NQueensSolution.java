@@ -2,9 +2,7 @@ package com.knighten.ai.hillclimb.nqueens;
 
 import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.IntStream;
 
 /**
@@ -76,40 +74,7 @@ public class NQueensSolution implements IHillClimbSolution {
         return this.board;
     }
 
-    /**
-     * The next potential solutions for the current solution will be the list of all possible next moves. We will limit
-     * the number of moves by only allowing one queen to be moved at a time. Queens will be locked into their assigned
-     * columns and then the n-1 row positions will be considered as possible moves(ignore its initial row position). For
-     * each queen/column we will generate n-1 new states/boards. This means we will have n * (n-1) successors(branching
-     * factor).
-     *
-     * @return a list of all possible next moves/board states
-     */
-    @Override
-    public List<IHillClimbSolution> generateNextSolutions() {
-        ArrayList<IHillClimbSolution> nextStates = new ArrayList<>();
 
-        // For Each Queen Iterate Over All Possible Row Moves(Ignoring Current Row Queen Is Positioned)
-        for(int queen = 0; queen < this.board.length; queen++)
-            // For Each Row Score Board If Current Queen Was Moved To The Row (Skip Row If Queen Is Already On That Row)
-            for(int row = 0; row < this.board.length; row++){
-
-                // Skip Position If Queen Is Already In The Current Row
-                if(this.board[queen] == row)
-                    continue;
-
-                // Make Copy Of Current Board
-                int[] newBoard = new int[this.board.length];
-                System.arraycopy(this.board, 0, newBoard, 0, this.board.length );
-
-                // Modify Board To Represent Moving The Current Queen To The Current Row
-                newBoard[queen] = row;
-
-                nextStates.add(new NQueensSolution(newBoard));
-            }
-
-        return nextStates;
-    }
 
     /**
      * Converts the NQueensSolution's board into a string. Q will represent queens and * will represent empty board spaces.
