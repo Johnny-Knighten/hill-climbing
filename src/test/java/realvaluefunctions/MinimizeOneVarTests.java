@@ -46,13 +46,15 @@ public class MinimizeOneVarTests {
         Mockito.when(mockListSize2Ascending.size()).thenReturn(2);
         Mockito.when(mockListSize2Ascending.get(0)).thenReturn(mockSolutionFitness0);
         Mockito.when(mockListSize2Ascending.get(1)).thenReturn(mockSolutionFitness1);
-        Mockito.when(mockListSize2Ascending.stream()).thenReturn(Arrays.stream(new IHillClimbSolution[]{mockSolutionFitness0, mockSolutionFitness1}));
+        Mockito.when(mockListSize2Ascending.stream()).thenReturn(
+                Arrays.stream(new IHillClimbSolution[]{mockSolutionFitness0, mockSolutionFitness1}));
 
         mockListSize2Descending = Mockito.mock(List.class);
         Mockito.when(mockListSize2Descending.size()).thenReturn(2);
         Mockito.when(mockListSize2Descending.get(0)).thenReturn(mockSolutionFitness1);
         Mockito.when(mockListSize2Descending.get(1)).thenReturn(mockSolutionFitness0);
-        Mockito.when(mockListSize2Descending.stream()).thenReturn(Arrays.stream(new IHillClimbSolution[]{mockSolutionFitness1, mockSolutionFitness0}));
+        Mockito.when(mockListSize2Descending.stream()).thenReturn(
+                Arrays.stream(new IHillClimbSolution[]{mockSolutionFitness1, mockSolutionFitness0}));
     }
 
     ////////////////////////
@@ -182,7 +184,7 @@ public class MinimizeOneVarTests {
     @Test
     public void isPeakOrPlateauPeak() {
         MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
-        boolean result = testObject.isPeakOrPlateau(mockSolutionFitness0, mockSolutionFitness1);
+        boolean result = testObject.atPeakOrPlateau(mockSolutionFitness0, mockSolutionFitness1);
 
         Assert.assertTrue(result);
     }
@@ -190,7 +192,7 @@ public class MinimizeOneVarTests {
     @Test
     public void isPeakOrPlateauPlateau() {
         MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
-        boolean result = testObject.isPeakOrPlateau(mockSolutionFitness0, mockSolutionFitness0);
+        boolean result = testObject.atPeakOrPlateau(mockSolutionFitness0, mockSolutionFitness0);
 
         Assert.assertTrue(result);
     }
@@ -198,7 +200,7 @@ public class MinimizeOneVarTests {
     @Test
     public void isPeakOrPlateauNotPeak() {
         MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
-        boolean result = testObject.isPeakOrPlateau(mockSolutionFitness1, mockSolutionFitness0);
+        boolean result = testObject.atPeakOrPlateau(mockSolutionFitness1, mockSolutionFitness0);
 
         Assert.assertTrue(!result);
     }
@@ -215,13 +217,13 @@ public class MinimizeOneVarTests {
     public void currentBetterThanBestNotBetter() {
         MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
 
-        Assert.assertTrue(testObject.currentBetterThanBest(mockSolutionFitness0, mockSolutionFitness1));
+        Assert.assertTrue(testObject.firstSolutionBetterThanOther(mockSolutionFitness0, mockSolutionFitness1));
     }
 
     @Test
     public void currentBetterThanBestBetter() {
         MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
-        Assert.assertTrue(!testObject.currentBetterThanBest(mockSolutionFitness1, mockSolutionFitness0));
+        Assert.assertTrue(!testObject.firstSolutionBetterThanOther(mockSolutionFitness1, mockSolutionFitness0));
     }
 
     @Test

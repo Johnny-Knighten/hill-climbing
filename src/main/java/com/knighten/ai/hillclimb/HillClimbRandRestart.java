@@ -62,7 +62,7 @@ public class HillClimbRandRestart extends HillClimbOptimizer {
         do {
 
             // Update BestSoFar If Current Is Better
-            if(this.getProblem().currentBetterThanBest(current, bestSoFar))
+            if(this.getProblem().firstSolutionBetterThanOther(current, bestSoFar))
                 bestSoFar = current;
 
             // Generate Next Solutions
@@ -76,7 +76,7 @@ public class HillClimbRandRestart extends HillClimbOptimizer {
             IHillClimbSolution bestNextSolution = this.getProblem().getBestSolution(nextSolutions);
 
             // Check If We Hit Valley/Peak or Plateau If So Perform Random Restart Else Continue The Search
-            if(this.getProblem().isPeakOrPlateau(current, bestNextSolution)) {
+            if(this.getProblem().atPeakOrPlateau(current, bestNextSolution)) {
                 current = this.generator.randomSolution();
                 current.setScore(this.getProblem().scoreSolution(current));
 

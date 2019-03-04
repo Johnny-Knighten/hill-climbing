@@ -33,7 +33,7 @@ public interface IHillClimbProblem {
      * @param newSolution a solution generated from the current solution
      * @return true is a peak/valley or plateau is found, false otherwise
      */
-    boolean isPeakOrPlateau(IHillClimbSolution currentSolution, IHillClimbSolution newSolution);
+    boolean atPeakOrPlateau(IHillClimbSolution currentSolution, IHillClimbSolution newSolution);
 
     /**
      * Calculates the score of the solution. This score is used to guide the hill climbing.
@@ -45,14 +45,14 @@ public interface IHillClimbProblem {
 
     /**
      * Used by HillClimbRandRestart to determine if the solution currently being operated on is better than the best
-     * found so far. Will return true if the current is better than the best and false otherwise. Each problem will
-     * have their own definition if the current is better than the best.
+     * found so far. Will return true if the solution1 is better than solution2 and false otherwise. Each problem will
+     * have their own definition of what "best" is.
      *
-     * @param current the current solution being operated on
-     * @param best the best solution found so far
-     * @return true if current is better than the best else false
+     * @param solution1 determining if this solution is better compared to other
+     * @param solution2 solution to compare solution1 with
+     * @return true if current is solution1 is better than solution2 else false
      */
-    boolean currentBetterThanBest(IHillClimbSolution current, IHillClimbSolution best);
+    boolean firstSolutionBetterThanOther(IHillClimbSolution solution1, IHillClimbSolution solution2);
 
     /**
      * Generates a list of the next set of potential solutions from a solution.

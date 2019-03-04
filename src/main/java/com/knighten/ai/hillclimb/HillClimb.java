@@ -63,7 +63,7 @@ public class HillClimb extends HillClimbOptimizer {
             IHillClimbSolution bestNextSolution = this.getProblem().getBestSolution(nextSolutions);
 
             // Check If We Hit Valley/Peak Or Plateau Otherwise Update Current And Continue
-             if(this.getProblem().isPeakOrPlateau(current, bestNextSolution))
+             if(this.getProblem().atPeakOrPlateau(current, bestNextSolution))
                  isPeakOrPlateau = true;
              else
                  current = bestNextSolution;

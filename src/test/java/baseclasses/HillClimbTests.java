@@ -53,13 +53,13 @@ public class HillClimbTests {
         mockProblemNoPeak = Mockito.mock(IHillClimbProblem.class);
         Mockito.when(mockProblemNoPeak.getInitialGuess()).thenReturn(mockSolution);
         Mockito.when(mockProblemNoPeak.getBestSolution(any())).thenReturn(mockSolutionNextSolutions);
-        Mockito.when(mockProblemNoPeak.isPeakOrPlateau(any(), any())).thenReturn(false);
+        Mockito.when(mockProblemNoPeak.atPeakOrPlateau(any(), any())).thenReturn(false);
         Mockito.when(mockProblemNoPeak.generateNextSolutions(any())).thenReturn(mockList);
 
         mockProblemPeak = Mockito.mock(IHillClimbProblem.class);
         Mockito.when(mockProblemPeak.getInitialGuess()).thenReturn(mockSolution);
         Mockito.when(mockProblemPeak.getBestSolution(any())).thenReturn(mockSolutionNextSolutions);
-        Mockito.when(mockProblemPeak.isPeakOrPlateau(any(), any())).thenReturn(true);
+        Mockito.when(mockProblemPeak.atPeakOrPlateau(any(), any())).thenReturn(true);
         Mockito.when(mockProblemPeak.generateNextSolutions(any())).thenReturn(mockList);
 
         mockParamsRealRuns = Mockito.mock(HillClimbParams.class);
@@ -107,7 +107,7 @@ public class HillClimbTests {
         verify(mockProblemNoPeak, times(1)).getBestSolution(mockList);
 
         // Ensure Check For Peak Or Plateau
-        verify(mockProblemNoPeak, times(1)).isPeakOrPlateau(mockSolution, mockSolutionNextSolutions);
+        verify(mockProblemNoPeak, times(1)).atPeakOrPlateau(mockSolution, mockSolutionNextSolutions);
 
         // Check Goal Score
         verify(mockParams, times(1)).getGoalScore();
@@ -138,7 +138,7 @@ public class HillClimbTests {
         verify(mockProblemPeak, times(1)).getBestSolution(mockList);
 
         // Ensure Check For Peak Or Plateau
-        verify(mockProblemPeak, times(1)).isPeakOrPlateau(mockSolution, mockSolutionNextSolutions);
+        verify(mockProblemPeak, times(1)).atPeakOrPlateau(mockSolution, mockSolutionNextSolutions);
 
         // Check Goal Score
         verify(mockParams, times(1)).getGoalScore();

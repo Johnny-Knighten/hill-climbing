@@ -66,22 +66,22 @@ public class NQueensProblem implements IHillClimbProblem {
      * @return true if currently in a valley or plateau, false otherwise
      */
     @Override
-    public boolean isPeakOrPlateau(IHillClimbSolution currentSolution, IHillClimbSolution newSolution) {
+    public boolean atPeakOrPlateau(IHillClimbSolution currentSolution, IHillClimbSolution newSolution) {
         return newSolution.getScore() >= currentSolution.getScore();
 
     }
 
     /**
-     * Determines if the current solution is better than the best found so far. We are minimizing so the current is
-     * better if it has a lower score than the best.
+     * Determines if solution1 is better than solution2. We are minimizing so the current is better if it has a lower
+     * score than the best.
      *
-     * @param current the current solution being operated on
-     * @param best the best solution found so far
-     * @return true if current has a lower score than best else false
+     * @param solution1 determining if this solution is better compared to other
+     * @param solution2 solution to compare solution1 with
+     * @return true if current is solution1 is better than solution2 else false
      */
     @Override
-    public boolean currentBetterThanBest(IHillClimbSolution current, IHillClimbSolution best) {
-        return current.getScore() < best.getScore();
+    public boolean firstSolutionBetterThanOther(IHillClimbSolution solution1, IHillClimbSolution solution2) {
+        return solution1.getScore() < solution2.getScore();
     }
 
     /**
