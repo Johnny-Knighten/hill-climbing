@@ -48,22 +48,23 @@ public class HillClimbTests {
         Mockito.when(mockList.iterator()).thenReturn(mockIterator);
 
         mockSolution = Mockito.mock(IHillClimbSolution.class);
-        Mockito.when(mockSolution.generateNextSolutions()).thenReturn(mockList);
+
 
         mockProblemNoPeak = Mockito.mock(IHillClimbProblem.class);
         Mockito.when(mockProblemNoPeak.getInitialGuess()).thenReturn(mockSolution);
         Mockito.when(mockProblemNoPeak.getBestSolution(any())).thenReturn(mockSolutionNextSolutions);
         Mockito.when(mockProblemNoPeak.isPeakOrPlateau(any(), any())).thenReturn(false);
+        Mockito.when(mockProblemNoPeak.generateNextSolutions(any())).thenReturn(mockList);
 
         mockProblemPeak = Mockito.mock(IHillClimbProblem.class);
         Mockito.when(mockProblemPeak.getInitialGuess()).thenReturn(mockSolution);
         Mockito.when(mockProblemPeak.getBestSolution(any())).thenReturn(mockSolutionNextSolutions);
         Mockito.when(mockProblemPeak.isPeakOrPlateau(any(), any())).thenReturn(true);
+        Mockito.when(mockProblemPeak.generateNextSolutions(any())).thenReturn(mockList);
 
         mockParamsRealRuns = Mockito.mock(HillClimbParams.class);
         Mockito.when(mockParamsRealRuns.getGoalScore()).thenReturn(0.0);
         Mockito.when(mockParamsRealRuns.getMaxIterations()).thenReturn(50);
-
     }
 
     ////////////////////////
@@ -97,7 +98,7 @@ public class HillClimbTests {
         verify(mockProblemNoPeak, times(1)).scoreSolution(mockSolution);
 
         // Generate Next Possible Solutions
-        verify(mockSolution, times(1)).generateNextSolutions();
+        verify(mockProblemNoPeak, times(1)).generateNextSolutions(mockSolution);
 
         // Next Possible Solutions Scores Are Set
         verify(mockSolutionNextSolutions, times(1)).setScore(anyDouble());
@@ -128,7 +129,7 @@ public class HillClimbTests {
         verify(mockProblemPeak, times(1)).scoreSolution(mockSolution);
 
         // Generate Next Possible Solutions
-        verify(mockSolution, times(1)).generateNextSolutions();
+        verify(mockProblemPeak, times(1)).generateNextSolutions(mockSolution);
 
         // Next Possible Solutions Scores Are Set
         verify(mockSolutionNextSolutions, times(1)).setScore(anyDouble());

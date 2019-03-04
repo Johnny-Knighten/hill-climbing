@@ -19,13 +19,16 @@ public class NQueensProblemTests {
     private NQueensSolution oneConflictBoard;
     private NQueensSolution threeConflictBoard;
     private NQueensSolution maxConflictBoard;
-
     private NQueensSolution mockSolution;
     private NQueensSolution mockSolution2;
-
     private List mockListSize1;
     private List mockListSize2Ascending;
     private List mockListSize2Descending;
+    private NQueensSolution twelveNextStates;
+    private NQueensSolution twentyNextStates;
+    private NQueensSolution thirtyNextStates;
+    private NQueensSolution fortyTwoNextStates;
+    private NQueensSolution fiftySixNextStates;
 
     @Before
     public void setup() {
@@ -52,6 +55,12 @@ public class NQueensProblemTests {
         oneConflictBoard = new NQueensSolution(new int[]{3, 3, 0, 2});
         threeConflictBoard = new NQueensSolution(new int[]{4,2,0,6,1,6,5,3});
         maxConflictBoard = new NQueensSolution(new int[]{0,1,2,3,4,5,6,7});
+
+        twelveNextStates = new NQueensSolution(new int[]{0,1,2,3});
+        twentyNextStates = new NQueensSolution(new int[]{0,1,2,3,4});
+        thirtyNextStates = new NQueensSolution(new int[]{0,1,2,3,4,5});
+        fortyTwoNextStates = new NQueensSolution(new int[]{0,1,2,3,4,5,6});
+        fiftySixNextStates = new NQueensSolution(new int[]{0,1,2,3,4,5,6,7});
     }
 
     ////////////////////////
@@ -170,6 +179,59 @@ public class NQueensProblemTests {
         double score = testObject.scoreSolution(maxConflictBoard);
 
         Assert.assertEquals(28, score, 0.0001);
+    }
+
+    @Test
+    public void generateNextSolutionsTwelveNextStates() {
+        NQueensProblem testObject = new NQueensProblem(mockSolution);
+        List<IHillClimbSolution> nextStates = testObject.generateNextSolutions(twelveNextStates);
+        Assert.assertEquals(12, nextStates.size(), 0.0001);
+    }
+
+    @Test
+    public void generateNextSolutionsTwentyNextStates() {
+        NQueensProblem testObject = new NQueensProblem(mockSolution);
+        List<IHillClimbSolution> nextStates = testObject.generateNextSolutions(twentyNextStates);
+        Assert.assertEquals(20, nextStates.size(), 0.0001);
+    }
+
+    @Test
+    public void generateNextSolutionsThirtyNextStates() {
+        NQueensProblem testObject = new NQueensProblem(mockSolution);
+        List<IHillClimbSolution> nextStates = testObject.generateNextSolutions(thirtyNextStates);
+        Assert.assertEquals(30, nextStates.size(), 0.0001);
+    }
+
+    @Test
+    public void generateNextSolutionsFortyTwoNextStates() {
+        NQueensProblem testObject = new NQueensProblem(mockSolution);
+        List<IHillClimbSolution> nextStates = testObject.generateNextSolutions(fortyTwoNextStates);
+        Assert.assertEquals(42, nextStates.size(), 0.0001);
+    }
+
+    @Test
+    public void generateNextSolutionsFiftySixNextStates() {
+        NQueensProblem testObject = new NQueensProblem(mockSolution);
+        List<IHillClimbSolution> nextStates = testObject.generateNextSolutions(fiftySixNextStates);
+        Assert.assertEquals(56, nextStates.size(), 0.0001);
+    }
+
+    @Test
+    public void generateNextSolutionsEnsureCorrectTwelveNextStates() {
+        NQueensProblem testObject = new NQueensProblem(mockSolution);
+        List<IHillClimbSolution> nextStates = testObject.generateNextSolutions(twelveNextStates);
+        Assert.assertTrue(nextStates.contains(new NQueensSolution(new int[]{1,1,2,3})));
+        Assert.assertTrue(nextStates.contains(new NQueensSolution(new int[]{2,1,2,3})));
+        Assert.assertTrue(nextStates.contains(new NQueensSolution(new int[]{3,1,2,3})));
+        Assert.assertTrue(nextStates.contains(new NQueensSolution(new int[]{0,0,2,3})));
+        Assert.assertTrue(nextStates.contains(new NQueensSolution(new int[]{0,2,2,3})));
+        Assert.assertTrue(nextStates.contains(new NQueensSolution(new int[]{0,3,2,3})));
+        Assert.assertTrue(nextStates.contains(new NQueensSolution(new int[]{0,1,0,3})));
+        Assert.assertTrue(nextStates.contains(new NQueensSolution(new int[]{0,1,1,3})));
+        Assert.assertTrue(nextStates.contains(new NQueensSolution(new int[]{0,1,3,3})));
+        Assert.assertTrue(nextStates.contains(new NQueensSolution(new int[]{0,1,2,0})));
+        Assert.assertTrue(nextStates.contains(new NQueensSolution(new int[]{0,1,2,1})));
+        Assert.assertTrue(nextStates.contains(new NQueensSolution(new int[]{0,1,2,2})));
     }
 
 }

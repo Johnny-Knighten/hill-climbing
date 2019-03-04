@@ -65,6 +65,12 @@ public class MaximizeOneVar implements IHillClimbProblem {
         if(stepSize == 0)
             throw new IllegalArgumentException("Step Size Cannot Be 0");
 
+        if(stepSize == Double.MIN_VALUE)
+            throw new IllegalArgumentException("Step Size Cannot Double.MIN_VALUE");
+
+        if(stepSize == Double.MAX_VALUE)
+            throw new IllegalArgumentException("Step Size Cannot Double.MAX_VALUE");
+
         if(!Double.isFinite(minDomain))
             throw new IllegalArgumentException("minDomain Cannot Be NaN or Infinite: " + minDomain + " was found");
 
