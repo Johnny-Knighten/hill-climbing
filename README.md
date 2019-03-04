@@ -1,9 +1,9 @@
 # Hill Climbing
 
 This is a java based implementation of the hill climbing optimization algorithm. There are two versions of hill climbing
-that is implemented: classic Hill Climbing and Hill Climbing With Random Restarts. The code is written as a framework so
-the optimizers supplied can be used to solve a variety of problems.  Users simply need to create a class that represents
-their problem and implement a small set of methods.
+implemented: classic Hill Climbing and Hill Climbing With Random Restarts. The code is written as a framework so
+the optimizers supplied can be used to solve a variety of problems.  Users simply need to implement a few classes that
+represent aspects of their problem.
 
 A brief overview of hill climbing and be found [here](https://github.com/JKnighten/hill-climbing/wiki/Hill-Climbing-Overview).
 
@@ -30,24 +30,22 @@ Execute the following to generate the javadocs for the framework:
 ./gradlew javadoc
 ```
 
-The javadocs can be found in /out/javadoc/.
+The javadocs can be found in /build/docs/javadoc/.
 
 ### Creating Your Optimization Problem 
 
 The HillClimb and HillClimbRandRestart classes are responsible for performing the local search/optimization using the 
-respective algorithm they are named after. Both classes take in an initial state(potential solution) and a set
-of parameters used by the algorithms. Initial states(potential solutions) must be a class that implements 
-IHillClimbProblem. This means each problem you want to be solved with one of the Hill Climbing algorithms will be 
-represented by a class that implements IHillClimbProblem. The IHillClimbProblem has methods to score the state
-(potential solution), get/set its score, and generate the next potential solutions. If HillClimbRandRestart is to be 
-used, then a class that implements IHillClimbProbGenerator must be created which is responsible for creating random
-states(potential solutions).
+respective algorithm they are named after. Both classes take in an problem class that implements IHillClimbProblem and 
+a set of parameters used by the algorithms. The problem class contains an initial guess that must be a class that 
+implements IHillClimbSolution. If HillClimbRandRestart is to be used, then a class that implements 
+IHillClimbSolnGenerator must be created which is responsible for creating random possible solutions..
 
 Inorder to perform a local search using HillClimb or HillClimbRandRestart you must:
 1. Create a class that implements IHillClimbProblem which represents the problem being solved
+2. Create a class that implements IHillClimbSolution which represents possible solutions
+3. Create an instance of your problem and solution class
 2. Create a instance of HillClimbParams and specify algorithm parameters
 3. (Optional) -  Create a class that implements IHillClimbProbGenerator if HillClimbRandRestart is being used
-4. Create an instance of HillClimb or HillClimbRandRestart
 4. Create an instance of HillClimb or HillClimbRandRestart
 5. Call the optimize() method on HillClimb or HillClimbRandRestart to being optimization 
 
@@ -89,5 +87,5 @@ iteration.
 
 ### Minimizing/Maximizing A One Variable Real Valued Function
 Given an one variable real valued function(R->R ex. f(x)=x, f(x)=x^2, f(x)=log(x)) find the maximum/minimum of the
-function. You could use this to minimize/maximize a simple function or something more complicated like a loss function
-for a machine learning model.
+function. You could use this to minimize/maximize a simple function or extend to code to optimize something more 
+complicated like a loss function for a machine learning model.
