@@ -1,7 +1,7 @@
 package realvaluefunctions;
 
 import com.knighten.ai.hillclimb.function.realvalue.IOneVariableFunction;
-import com.knighten.ai.hillclimb.function.realvalue.MinimizeOneVar;
+import com.knighten.ai.hillclimb.function.realvalue.MaximizeOneVar;
 import com.knighten.ai.hillclimb.function.realvalue.OneVarSolution;
 import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
 import org.junit.Assert;
@@ -15,8 +15,7 @@ import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-public class MinimizeOneVarTests {
-
+public class MaximizeOneVarTests {
 
     private IOneVariableFunction mockFunction;
     private OneVarSolution mockSolutionFitness0;
@@ -56,12 +55,12 @@ public class MinimizeOneVarTests {
 
     @Test(expected = IllegalArgumentException.class)
     public void constructorNullInitialGuess() {
-        new MinimizeOneVar(null, mockFunction);
+        new MaximizeOneVar(null, mockFunction);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void constructorNullFunction() {
-        new MinimizeOneVar(mockSolutionFitness0, null);
+        new MaximizeOneVar(mockSolutionFitness0, null);
     }
 
     ////////////////////
@@ -70,7 +69,7 @@ public class MinimizeOneVarTests {
 
     @Test
     public void getBestSolutionListOfSizeOne() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction);
+        MaximizeOneVar testObject = new MaximizeOneVar(mockSolutionFitness0, mockFunction);
         IHillClimbSolution result = testObject.getBestSolution(mockListSize1);
 
         verify(mockListSize1, times(1)).get(0);
@@ -79,43 +78,44 @@ public class MinimizeOneVarTests {
 
     @Test
     public void getBestSolutionListOfSizeTwoAscending() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction);
+        MaximizeOneVar testObject = new MaximizeOneVar(mockSolutionFitness0, mockFunction);
         IHillClimbSolution result = testObject.getBestSolution(mockListSize2Ascending);
+
 
         verify(mockListSize2Ascending, times(1)).get(0);
         verify(mockSolutionFitness0, times(1)).getScore();
-        verify(mockListSize2Ascending, times(1)).get(1);
+        // Gets Twice To Set Current Max
+        verify(mockListSize2Ascending, times(2)).get(1);
         verify(mockSolutionFitness1, times(1)).getScore();
 
-        Assert.assertEquals(mockSolutionFitness0, result);
+        Assert.assertEquals(mockSolutionFitness1, result);
     }
 
     @Test
     public void getBestSolutionListOfSizeTwoDescending() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction);
+        MaximizeOneVar testObject = new MaximizeOneVar(mockSolutionFitness0, mockFunction);
         IHillClimbSolution result = testObject.getBestSolution(mockListSize2Descending);
 
         verify(mockListSize2Descending, times(1)).get(0);
         verify(mockSolutionFitness0, times(1)).getScore();
-        // Gets Twice To Set Current Min
-        verify(mockListSize2Descending, times(2)).get(1);
+        verify(mockListSize2Descending, times(1)).get(1);
         verify(mockSolutionFitness1, times(1)).getScore();
 
-        Assert.assertEquals(mockSolutionFitness0, result);
+        Assert.assertEquals(mockSolutionFitness1, result);
     }
 
 
     @Test
     public void isPeakOrPlateauPeak() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction);
-        boolean result = testObject.isPeakOrPlateau(mockSolutionFitness0, mockSolutionFitness1);
+        MaximizeOneVar testObject = new MaximizeOneVar(mockSolutionFitness0, mockFunction);
+        boolean result = testObject.isPeakOrPlateau(mockSolutionFitness1, mockSolutionFitness0);
 
         Assert.assertTrue(result);
     }
 
     @Test
     public void isPeakOrPlateauPlateau() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction);
+        MaximizeOneVar testObject = new MaximizeOneVar(mockSolutionFitness0, mockFunction);
         boolean result = testObject.isPeakOrPlateau(mockSolutionFitness0, mockSolutionFitness0);
 
         Assert.assertTrue(result);
@@ -123,15 +123,15 @@ public class MinimizeOneVarTests {
 
     @Test
     public void isPeakOrPlateauNotPeak() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction);
-        boolean result = testObject.isPeakOrPlateau(mockSolutionFitness1, mockSolutionFitness0);
+        MaximizeOneVar testObject = new MaximizeOneVar(mockSolutionFitness0, mockFunction);
+        boolean result = testObject.isPeakOrPlateau(mockSolutionFitness0, mockSolutionFitness1);
 
         Assert.assertTrue(!result);
     }
 
     @Test
     public void scoreSolutionFunctionIsUed() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction);
+        MaximizeOneVar testObject = new MaximizeOneVar(mockSolutionFitness0, mockFunction);
 
         testObject.scoreSolution(mockSolutionFitness0);
         verify(mockFunction, times(1)).getFuncValue(anyDouble());
@@ -139,15 +139,15 @@ public class MinimizeOneVarTests {
 
     @Test
     public void currentBetterThanBestNotBetter() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction);
+        MaximizeOneVar testObject = new MaximizeOneVar(mockSolutionFitness0, mockFunction);
 
-        Assert.assertTrue(testObject.currentBetterThanBest(mockSolutionFitness0, mockSolutionFitness1));
+        Assert.assertTrue(testObject.currentBetterThanBest(mockSolutionFitness1, mockSolutionFitness0));
     }
 
     @Test
     public void currentBetterThanBestBetter() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction);
-        Assert.assertTrue(!testObject.currentBetterThanBest(mockSolutionFitness1, mockSolutionFitness0));
+        MaximizeOneVar testObject = new MaximizeOneVar(mockSolutionFitness0, mockFunction);
+        Assert.assertTrue(!testObject.currentBetterThanBest(mockSolutionFitness0, mockSolutionFitness1));
     }
 
 }

@@ -4,10 +4,10 @@ package com.knighten.ai.hillclimb.function.realvalue;
  * A functional interface used to represent a real valued function with one variable.
  *
  * Example Lambdas:
- * (x) -> Math.pow(x, 2) - f(x)=x^2
- * (x) -> Math.log(x) - f(x)=log(x)
- * (x) -> Math.log(1/x) - f(x)=log(1/x)
- * (x) -> Math.exp(x) - f(x)=e^x
+ * 1. (x) arrow Math.pow(x, 2) - f(x)=x^2
+ * 2. (x) arrow Math.log(x) - f(x)=log(x)
+ * 3. (x) arrow Math.log(1/x) - f(x)=log(1/x)
+ * 4. (x) arrow Math.exp(x) - f(x)=e^x
  */
 public interface IOneVariableFunction {
 
