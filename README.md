@@ -72,6 +72,8 @@ IHillClimbSolution optimal = climber.optimize();
 Each of these local search problems' have a demo implemented as a main method in their associated IHillClimbProblem 
 implementations.
 
+Also here is a small writeup about the steps followed to create a problem class - [link](https://github.com/JKnighten/hill-climbing/wiki/Example:-Creating-An-Optimization-Problem-For-Hill-Climbing).
+
 
 ### NQueens
 
@@ -83,3 +85,9 @@ the columns. In each column we look at each new potential solution that can be g
 column to rows it does not currently occupy. Since we iterate over each column and each row currently not occupied in
 that column, we end up with a N * (N-1) branching factor. That is, N * (N-1) potential solutions are generated on each
 iteration.
+
+
+### Minimizing/Maximizing A One Variable Real Valued Function
+Given an one variable real valued function(R->R ex. f(x)=x, f(x)=x^2, f(x)=log(x)) find the maximum/minimum of the
+function. You could use this to minimize/maximize a simple function or something more complicated like a loss function
+for a machine learning model.
