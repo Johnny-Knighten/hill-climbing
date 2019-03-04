@@ -6,6 +6,7 @@ import com.knighten.ai.hillclimb.interfaces.IHillClimbProblem;
 import com.knighten.ai.hillclimb.interfaces.IHillClimbSolnGenerator;
 import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -60,14 +61,9 @@ public class MaximizeOneVar implements IHillClimbProblem {
      */
     @Override
     public IHillClimbSolution getBestSolution(List<IHillClimbSolution> possibleSolns) {
-        IHillClimbSolution max = possibleSolns.get(0);
-        for(int nextSoln=1; nextSoln < possibleSolns.size(); nextSoln++) {
-            if (max.getScore() < possibleSolns.get(nextSoln).getScore()) {
-                max = possibleSolns.get(nextSoln);
-            }
-        }
-
-        return max;
+        return possibleSolns.stream()
+                .max(Comparator.comparing(IHillClimbSolution::getScore))
+                .get();
     }
 
     /**
