@@ -113,7 +113,7 @@ public class NQueensProblemTests {
     }
 
     @Test
-    public void isPeakOrPlateauPeak (){
+    public void atPeakOrPlateauPeak (){
         NQueensProblem testObject = new NQueensProblem(mockSolution);
         boolean result = testObject.atPeakOrPlateau(mockSolution, mockSolution2);
 
@@ -121,7 +121,7 @@ public class NQueensProblemTests {
     }
 
     @Test
-    public void isPeakOrPlateauPlateau (){
+    public void atPeakOrPlateauPlateau (){
         NQueensProblem testObject = new NQueensProblem(mockSolution);
         boolean result = testObject.atPeakOrPlateau(mockSolution, mockSolution);
 
@@ -129,7 +129,7 @@ public class NQueensProblemTests {
     }
 
     @Test
-    public void isPeakOrPlateauNotPeak (){
+    public void atPeakOrPlateauNotPeak (){
         NQueensProblem testObject = new NQueensProblem(mockSolution);
         boolean result = testObject.atPeakOrPlateau(mockSolution2, mockSolution);
 
@@ -137,14 +137,14 @@ public class NQueensProblemTests {
     }
 
     @Test
-    public void currentBetterThanBestNotBetter() {
+    public void firstSolutionBetterThanOtherNotBetter() {
         NQueensProblem testObject = new NQueensProblem(mockSolution);
 
         Assert.assertTrue(testObject.firstSolutionBetterThanOther(mockSolution, mockSolution2));
     }
 
     @Test
-    public void currentBetterThanBestBetter() {
+    public void firstSolutionBetterThanOtherBetter() {
         NQueensProblem testObject = new NQueensProblem(mockSolution);
         Assert.assertTrue(!testObject.firstSolutionBetterThanOther(mockSolution2, mockSolution));
     }

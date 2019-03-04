@@ -181,7 +181,7 @@ public class MaximizeOneVarTests {
 
 
     @Test
-    public void isPeakOrPlateauPeak() {
+    public void atPeakOrPlateauPeak() {
         MaximizeOneVar testObject = new MaximizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
         boolean result = testObject.atPeakOrPlateau(mockSolutionFitness1, mockSolutionFitness0);
 
@@ -189,7 +189,7 @@ public class MaximizeOneVarTests {
     }
 
     @Test
-    public void isPeakOrPlateauPlateau() {
+    public void atPeakOrPlateauPlateau() {
         MaximizeOneVar testObject = new MaximizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
         boolean result = testObject.atPeakOrPlateau(mockSolutionFitness0, mockSolutionFitness0);
 
@@ -197,7 +197,7 @@ public class MaximizeOneVarTests {
     }
 
     @Test
-    public void isPeakOrPlateauNotPeak() {
+    public void atPeakOrPlateauNotPeak() {
         MaximizeOneVar testObject = new MaximizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
         boolean result = testObject.atPeakOrPlateau(mockSolutionFitness0, mockSolutionFitness1);
 
@@ -213,14 +213,14 @@ public class MaximizeOneVarTests {
     }
 
     @Test
-    public void currentBetterThanBestNotBetter() {
+    public void firstSolutionBetterThanOtherNotBetter() {
         MaximizeOneVar testObject = new MaximizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
 
         Assert.assertTrue(testObject.firstSolutionBetterThanOther(mockSolutionFitness1, mockSolutionFitness0));
     }
 
     @Test
-    public void currentBetterThanBestBetter() {
+    public void firstSolutionBetterThanOtherBetter() {
         MaximizeOneVar testObject = new MaximizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
         Assert.assertTrue(!testObject.firstSolutionBetterThanOther(mockSolutionFitness0, mockSolutionFitness1));
     }
