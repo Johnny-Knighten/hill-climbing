@@ -9,6 +9,7 @@ package com.knighten.ai.hillclimb.function.realvalue;
  * 3. (x) arrow Math.log(1/x) - f(x)=log(1/x)
  * 4. (x) arrow Math.exp(x) - f(x)=e^x
  */
+@FunctionalInterface
 public interface IOneVariableFunction {
 
     /**
