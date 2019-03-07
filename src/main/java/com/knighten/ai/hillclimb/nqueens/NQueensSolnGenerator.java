@@ -23,15 +23,15 @@ public class NQueensSolnGenerator implements IHillClimbSolnGenerator {
     /**
      * Creates a NQueensSolnGenerator that is used to generate random NQueensSolutions.
      *
-     * @param n size of n queens board to generate
+     * @param n      size of n queens board to generate
      * @param random random number generator
      */
     public NQueensSolnGenerator(int n, Random random) {
 
-        if(random == null)
+        if (random == null)
             throw new IllegalArgumentException("Random Object Cannot Be Null");
 
-        if(n <= 3)
+        if (n <= 3)
             throw new IllegalArgumentException("NQueens Boards Are Only Solvable When N Is Greater Than 3");
 
         this.n = n;
@@ -49,7 +49,7 @@ public class NQueensSolnGenerator implements IHillClimbSolnGenerator {
         int[] board = new int[this.n];
 
         // Generate Random Row Positions For Every Queen
-        for(int column = 0; column < this.n; column++)
+        for (int column = 0; column < this.n; column++)
             board[column] = this.random.nextInt(this.n);
 
         // Create And Score New Random State

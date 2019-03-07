@@ -69,6 +69,4 @@ public class NQueensSolutionTests {
         Assert.assertTrue((testObject1.hashCode() != testObject3.hashCode()) == (!testObject1.equals(testObject3)));
     }
 
-
-
 }

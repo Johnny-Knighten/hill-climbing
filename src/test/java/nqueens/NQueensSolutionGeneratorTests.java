@@ -27,8 +27,6 @@ public class NQueensSolutionGeneratorTests {
         new NQueensSolnGenerator(12, null);
     }
 
-
-
     ////////////////////
     // Method Testing //
     ////////////////////

@@ -23,7 +23,7 @@ public class NQueensProblem implements IHillClimbProblem {
      */
     public NQueensProblem(IHillClimbSolution initialGuess) {
 
-        if(initialGuess == null)
+        if (initialGuess == null)
             throw new IllegalArgumentException("Initial Guess Object Cannot Be Null");
 
         this.initialGuess = initialGuess;
@@ -50,7 +50,7 @@ public class NQueensProblem implements IHillClimbProblem {
     @Override
     public IHillClimbSolution getBestSolution(List<IHillClimbSolution> possibleSolns) {
         IHillClimbSolution min = possibleSolns.get(0);
-        for(int nextSoln=1; nextSoln < possibleSolns.size(); nextSoln++) {
+        for (int nextSoln = 1; nextSoln < possibleSolns.size(); nextSoln++) {
             if (min.getScore() > possibleSolns.get(nextSoln).getScore()) {
                 min = possibleSolns.get(nextSoln);
             }
@@ -99,22 +99,22 @@ public class NQueensProblem implements IHillClimbProblem {
         int score = 0;
 
         // We Iterate Over Every Queen Starting With The Far Left Queen
-        for(int queen = 0; queen < board.length; queen++){
+        for (int queen = 0; queen < board.length; queen++) {
 
             // We Iterate Over Every Queen In Front Of The Queen Currently Being Evaluated
-            for(int remainingQueen = queen + 1; remainingQueen < board.length; remainingQueen++){
+            for (int remainingQueen = queen + 1; remainingQueen < board.length; remainingQueen++) {
 
                 // Check Row Conflict
-                if(board[queen] == board[remainingQueen])
+                if (board[queen] == board[remainingQueen])
                     score++;
 
                 // Check Diagonal Conflict
-                if(Math.abs(board[queen] - board[remainingQueen]) == Math.abs(queen - remainingQueen))
+                if (Math.abs(board[queen] - board[remainingQueen]) == Math.abs(queen - remainingQueen))
                     score++;
             }
         }
 
-        return  score;
+        return score;
     }
 
     /**
@@ -133,17 +133,17 @@ public class NQueensProblem implements IHillClimbProblem {
         ArrayList<IHillClimbSolution> nextStates = new ArrayList<>();
 
         // For Each Queen Iterate Over All Possible Row Moves(Ignoring Current Row Queen Is Positioned)
-        for(int queen = 0; queen < solutionAsNQueens.getBoard().length; queen++)
+        for (int queen = 0; queen < solutionAsNQueens.getBoard().length; queen++)
             // For Each Row Score Board If Current Queen Was Moved To The Row (Skip Row If Queen Is Already On That Row)
-            for(int row = 0; row < solutionAsNQueens.getBoard().length; row++){
+            for (int row = 0; row < solutionAsNQueens.getBoard().length; row++) {
 
                 // Skip Position If Queen Is Already In The Current Row
-                if(solutionAsNQueens.getBoard()[queen] == row)
+                if (solutionAsNQueens.getBoard()[queen] == row)
                     continue;
 
                 // Make Copy Of Current Board
                 int[] newBoard = new int[solutionAsNQueens.getBoard().length];
-                System.arraycopy(solutionAsNQueens.getBoard(), 0, newBoard, 0, solutionAsNQueens.getBoard().length );
+                System.arraycopy(solutionAsNQueens.getBoard(), 0, newBoard, 0, solutionAsNQueens.getBoard().length);
 
                 // Modify Board To Represent Moving The Current Queen To The Current Row
                 newBoard[queen] = row;
