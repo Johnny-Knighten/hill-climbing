@@ -19,7 +19,6 @@ public class OneVarSolutionTests {
         new OneVarSolution(Double.POSITIVE_INFINITY);
     }
 
-
     @Test(expected = IllegalArgumentException.class)
     public void setScoreToNaN() {
         OneVarSolution testObject = new OneVarSolution(0.0);

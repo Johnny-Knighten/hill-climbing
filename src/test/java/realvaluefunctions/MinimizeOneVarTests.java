@@ -138,12 +138,12 @@ public class MinimizeOneVarTests {
 
     @Test(expected = IllegalArgumentException.class)
     public void constructorMinDomainLargerThanMaxDomain() {
-        new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, -2 , 1.0);
+        new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, -2, 1.0);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void constructorMinDomainEqualToMaxDomain() {
-        new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, -1 , 1.0);
+        new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, -1, 1.0);
     }
 
     ////////////////////
@@ -152,7 +152,7 @@ public class MinimizeOneVarTests {
 
     @Test
     public void getBestSolutionListOfSizeOne() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
+        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1, 1.0);
         IHillClimbSolution result = testObject.getBestSolution(mockListSize1);
 
         Assert.assertEquals(mockSolutionFitness0, result);
@@ -160,7 +160,7 @@ public class MinimizeOneVarTests {
 
     @Test
     public void getBestSolutionListOfSizeTwoAscending() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
+        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1, 1.0);
         IHillClimbSolution result = testObject.getBestSolution(mockListSize2Ascending);
 
         verify(mockSolutionFitness0, times(1)).getScore();
@@ -171,7 +171,7 @@ public class MinimizeOneVarTests {
 
     @Test
     public void getBestSolutionListOfSizeTwoDescending() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
+        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1, 1.0);
         IHillClimbSolution result = testObject.getBestSolution(mockListSize2Descending);
 
         verify(mockSolutionFitness0, times(1)).getScore();
@@ -180,10 +180,9 @@ public class MinimizeOneVarTests {
         Assert.assertEquals(mockSolutionFitness0, result);
     }
 
-
     @Test
     public void atPeakOrPlateauPeak() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
+        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1, 1.0);
         boolean result = testObject.atPeakOrPlateau(mockSolutionFitness0, mockSolutionFitness1);
 
         Assert.assertTrue(result);
@@ -191,7 +190,7 @@ public class MinimizeOneVarTests {
 
     @Test
     public void atPeakOrPlateauPlateau() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
+        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1, 1.0);
         boolean result = testObject.atPeakOrPlateau(mockSolutionFitness0, mockSolutionFitness0);
 
         Assert.assertTrue(result);
@@ -199,7 +198,7 @@ public class MinimizeOneVarTests {
 
     @Test
     public void atPeakOrPlateauNotPeak() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
+        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1, 1.0);
         boolean result = testObject.atPeakOrPlateau(mockSolutionFitness1, mockSolutionFitness0);
 
         Assert.assertTrue(!result);
@@ -207,7 +206,7 @@ public class MinimizeOneVarTests {
 
     @Test
     public void scoreSolutionFunctionIsUed() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
+        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1, 1.0);
 
         testObject.scoreSolution(mockSolutionFitness0);
         verify(mockFunction, times(1)).getFuncValue(anyDouble());
@@ -215,25 +214,25 @@ public class MinimizeOneVarTests {
 
     @Test
     public void firstSolutionBetterThanOtherNotBetter() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
+        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1, 1.0);
 
         Assert.assertTrue(testObject.firstSolutionBetterThanOther(mockSolutionFitness0, mockSolutionFitness1));
     }
 
     @Test
     public void firstSolutionBetterThanOtherBetter() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1 , 1.0);
+        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -1, 1, 1.0);
         Assert.assertTrue(!testObject.firstSolutionBetterThanOther(mockSolutionFitness1, mockSolutionFitness0));
     }
 
     @Test
     public void generateNextSolutionsCorrectSolutionsCreated() {
-        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -2, 2 , 1.0);
+        MinimizeOneVar testObject = new MinimizeOneVar(mockSolutionFitness0, mockFunction, -2, 2, 1.0);
         List<IHillClimbSolution> results = testObject.generateNextSolutions(mockSolutionFitness0);
 
         Assert.assertEquals(2, results.size());
-        Assert.assertTrue(IntStream.range(0, 2).anyMatch((i) ->((OneVarSolution) results.get(i)).getXValue() == 0.0));
-        Assert.assertTrue(IntStream.range(0, 2).anyMatch((i) ->((OneVarSolution) results.get(i)).getXValue() == 2.0));
+        Assert.assertTrue(IntStream.range(0, 2).anyMatch((i) -> ((OneVarSolution) results.get(i)).getXValue() == 0.0));
+        Assert.assertTrue(IntStream.range(0, 2).anyMatch((i) -> ((OneVarSolution) results.get(i)).getXValue() == 2.0));
     }
 
 }

@@ -101,15 +101,15 @@ public class OneVarSolnGeneratorTests {
 
     @Test
     public void randomSolutionGenerateSolutionCorrectValue() {
-        OneVarSolnGenerator testObject =  new OneVarSolnGenerator(-1.0, 1.0, 0.1, mockRandom);
+        OneVarSolnGenerator testObject = new OneVarSolnGenerator(-1.0, 1.0, 0.1, mockRandom);
         Assert.assertEquals(0.0, ((OneVarSolution) testObject.randomSolution()).getXValue(), .00001);
     }
 
     @Test
     public void randomSolution100ValuesInRange() {
-        OneVarSolnGenerator testObject =  new OneVarSolnGenerator(-1.0, 1.0, 0.1, new Random());
+        OneVarSolnGenerator testObject = new OneVarSolnGenerator(-1.0, 1.0, 0.1, new Random());
 
-        for(int i=0; i<100; i++) {
+        for (int i = 0; i < 100; i++) {
             OneVarSolution randomSolution = (OneVarSolution) testObject.randomSolution();
             Assert.assertTrue(randomSolution.getXValue() <= 1.0 && randomSolution.getXValue() >= -1);
         }

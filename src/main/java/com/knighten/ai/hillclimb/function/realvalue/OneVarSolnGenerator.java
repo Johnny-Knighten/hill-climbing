@@ -36,43 +36,43 @@ public class OneVarSolnGenerator implements IHillClimbSolnGenerator {
     private int numberOfStepsInSearchRange;
 
     /**
-     *  Creates an instance of a random OneVarSolution generator.
+     * Creates an instance of a random OneVarSolution generator.
      *
      * @param minDomain the smallest number in the search range
      * @param maxDomain the largest number in the search range
-     * @param stepSize the unit used to generate next solutions
-     * @param random used to generate random numbers
+     * @param stepSize  the unit used to generate next solutions
+     * @param random    used to generate random numbers
      */
     public OneVarSolnGenerator(double minDomain, double maxDomain, double stepSize, Random random) {
 
-        if(!Double.isFinite(minDomain))
+        if (!Double.isFinite(minDomain))
             throw new IllegalArgumentException("minDomain Cannot Be NaN or Infinite: " + minDomain + " was found");
 
-        if(minDomain == Double.MIN_VALUE)
+        if (minDomain == Double.MIN_VALUE)
             throw new IllegalArgumentException("minDomain Cannot Double.MIN_VALUE");
 
-        if(minDomain == Double.MAX_VALUE)
+        if (minDomain == Double.MAX_VALUE)
             throw new IllegalArgumentException("minDomain Cannot Double.MAX_VALUE");
 
-        if(!Double.isFinite(maxDomain))
+        if (!Double.isFinite(maxDomain))
             throw new IllegalArgumentException("maxDomain Cannot Be NaN or Infinite: " + maxDomain + " was found");
 
-        if(maxDomain == Double.MIN_VALUE)
+        if (maxDomain == Double.MIN_VALUE)
             throw new IllegalArgumentException("maxDomain Cannot Double.MIN_VALUE");
 
-        if(maxDomain == Double.MAX_VALUE)
+        if (maxDomain == Double.MAX_VALUE)
             throw new IllegalArgumentException("maxDomain Cannot Double.MAX_VALUE");
 
-        if(!Double.isFinite(stepSize))
+        if (!Double.isFinite(stepSize))
             throw new IllegalArgumentException("Step Size Cannot Be Infinity Or NaN");
 
-        if(stepSize == 0)
+        if (stepSize == 0)
             throw new IllegalArgumentException("Step Size Cannot Be 0");
 
-        if(random == null)
+        if (random == null)
             throw new IllegalArgumentException("Random Object Cannot Be Null");
 
-        if(minDomain >= maxDomain)
+        if (minDomain >= maxDomain)
             throw new IllegalArgumentException("Min Domain Must Be less That Max Domain");
 
         this.minDomain = minDomain;
@@ -81,7 +81,7 @@ public class OneVarSolnGenerator implements IHillClimbSolnGenerator {
         this.random = random;
 
         // We Will Get The Number Of Steps That Fit Into The SearchRanch To Be Used To Generate X Values
-        this.numberOfStepsInSearchRange = (int) Math.floor((maxDomain-minDomain)/stepSize);
+        this.numberOfStepsInSearchRange = (int) Math.floor((maxDomain - minDomain) / stepSize);
     }
 
     /**
@@ -91,7 +91,7 @@ public class OneVarSolnGenerator implements IHillClimbSolnGenerator {
      */
     @Override
     public IHillClimbSolution randomSolution() {
-        double randomValue = this.minDomain + this.stepSize * this.random.nextInt(numberOfStepsInSearchRange+1);
+        double randomValue = this.minDomain + this.stepSize * this.random.nextInt(numberOfStepsInSearchRange + 1);
         return new OneVarSolution(randomValue);
     }
 

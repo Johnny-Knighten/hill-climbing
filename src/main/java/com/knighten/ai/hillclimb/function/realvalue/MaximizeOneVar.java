@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- *  Represents the maximization of a one var real valued function. Used with the hill climbing framework.
+ * Represents the maximization of a one var real valued function. Used with the hill climbing framework.
  */
 public class MaximizeOneVar implements IHillClimbProblem {
 
@@ -45,51 +45,51 @@ public class MaximizeOneVar implements IHillClimbProblem {
      * Creates a one var real valued function maximization problem.
      *
      * @param initialGuess the initial guess at the solution of the minimization
-     * @param function the function being minimized
-     * @param minDomain the smallest number in the search range
-     * @param maxDomain the largest number in the search range
-     * @param stepSize the unit used to generate next solutions
+     * @param function     the function being minimized
+     * @param minDomain    the smallest number in the search range
+     * @param maxDomain    the largest number in the search range
+     * @param stepSize     the unit used to generate next solutions
      */
     public MaximizeOneVar(IHillClimbSolution initialGuess, IOneVariableFunction function, double minDomain,
                           double maxDomain, double stepSize) {
 
-        if(initialGuess == null)
+        if (initialGuess == null)
             throw new IllegalArgumentException("Initial Guess Cannot Be Null");
 
-        if(function == null)
+        if (function == null)
             throw new IllegalArgumentException("Function Being Optimized Cannot Be Null");
 
-        if(!Double.isFinite(stepSize))
+        if (!Double.isFinite(stepSize))
             throw new IllegalArgumentException("Step Size Cannot Be Infinity Or NaN");
 
-        if(stepSize == 0)
+        if (stepSize == 0)
             throw new IllegalArgumentException("Step Size Cannot Be 0");
 
-        if(stepSize == Double.MIN_VALUE)
+        if (stepSize == Double.MIN_VALUE)
             throw new IllegalArgumentException("Step Size Cannot Double.MIN_VALUE");
 
-        if(stepSize == Double.MAX_VALUE)
+        if (stepSize == Double.MAX_VALUE)
             throw new IllegalArgumentException("Step Size Cannot Double.MAX_VALUE");
 
-        if(!Double.isFinite(minDomain))
+        if (!Double.isFinite(minDomain))
             throw new IllegalArgumentException("minDomain Cannot Be NaN or Infinite: " + minDomain + " was found");
 
-        if(minDomain == Double.MIN_VALUE)
+        if (minDomain == Double.MIN_VALUE)
             throw new IllegalArgumentException("minDomain Cannot Double.MIN_VALUE");
 
-        if(minDomain == Double.MAX_VALUE)
+        if (minDomain == Double.MAX_VALUE)
             throw new IllegalArgumentException("minDomain Cannot Double.MAX_VALUE");
 
-        if(!Double.isFinite(maxDomain))
+        if (!Double.isFinite(maxDomain))
             throw new IllegalArgumentException("maxDomain Cannot Be NaN or Infinite: " + maxDomain + " was found");
 
-        if(maxDomain == Double.MIN_VALUE)
+        if (maxDomain == Double.MIN_VALUE)
             throw new IllegalArgumentException("maxDomain Cannot Double.MIN_VALUE");
 
-        if(maxDomain == Double.MAX_VALUE)
+        if (maxDomain == Double.MAX_VALUE)
             throw new IllegalArgumentException("maxDomain Cannot Double.MAX_VALUE");
 
-        if(minDomain >= maxDomain)
+        if (minDomain >= maxDomain)
             throw new IllegalArgumentException("Min Domain Must Be less That Max Domain");
 
         this.initialGuess = initialGuess;
@@ -127,7 +127,7 @@ public class MaximizeOneVar implements IHillClimbProblem {
      * the new solution is less than or equal to the current solution since we are performing maximization.
      *
      * @param currentSolution the current solution in the hill climb iteration
-     * @param newSolution a solution generated from the current solution
+     * @param newSolution     a solution generated from the current solution
      * @return true is a peak/valley or plateau is found, false otherwise
      */
     @Override
@@ -171,11 +171,11 @@ public class MaximizeOneVar implements IHillClimbProblem {
         List<IHillClimbSolution> list = new ArrayList<>();
 
         double largerValue = solutionAsOneVar.getXValue() + this.stepSize;
-        if(largerValue <= this.maxDomain)
+        if (largerValue <= this.maxDomain)
             list.add(new OneVarSolution(largerValue));
 
         double smallerValue = solutionAsOneVar.getXValue() - this.stepSize;
-        if(smallerValue >= this.minDomain)
+        if (smallerValue >= this.minDomain)
             list.add(new OneVarSolution(smallerValue));
 
         return list;
@@ -185,7 +185,7 @@ public class MaximizeOneVar implements IHillClimbProblem {
         HillClimbParams params = new HillClimbParams();
         params.setMaxIterations(1000000);
 
-        IOneVariableFunction function = (x) -> -4*Math.pow(x, 6) + 5*Math.pow(x, 2) - x + 1;
+        IOneVariableFunction function = (x) -> -4 * Math.pow(x, 6) + 5 * Math.pow(x, 2) - x + 1;
 
         IHillClimbSolution initialState = new OneVarSolution(2);
 

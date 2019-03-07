@@ -25,7 +25,7 @@ public class OneVarSolution implements IHillClimbSolution {
      */
     public OneVarSolution(double xValue) {
 
-        if(!Double.isFinite(xValue))
+        if (!Double.isFinite(xValue))
             throw new IllegalArgumentException("X Value Cannot Be Infinity Or NaN");
 
         this.xValue = xValue;
@@ -58,7 +58,7 @@ public class OneVarSolution implements IHillClimbSolution {
     @Override
     public void setScore(double score) {
 
-        if(!Double.isFinite(score))
+        if (!Double.isFinite(score))
             throw new IllegalArgumentException("A OneVarSolution's Score Cannot Be Infinity Or NaN");
 
         this.score = score;
