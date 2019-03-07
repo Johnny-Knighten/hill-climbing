@@ -7,7 +7,7 @@ import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
  * Abstract class extended by HillClimb and HillClimbRandRestart. Stores the problem and optimizer parameters. Also has
  * a method to check if a solution is the goal solution.
  */
-public abstract class HillClimbOptimizer {
+public abstract class AbstractHillClimbOptimizer {
 
     /**
      * The set of parameters used by the optimizer.

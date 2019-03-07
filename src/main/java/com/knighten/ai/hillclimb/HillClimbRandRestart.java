@@ -14,7 +14,7 @@ import java.util.Random;
  * to be found if the algorithm is ran for many iterations. Also has the ability for early termination when a specific
  * value is found and can terminate when a set number of iterations are executed.
  */
-public class HillClimbRandRestart extends HillClimbOptimizer {
+public class HillClimbRandRestart extends AbstractHillClimbOptimizer {
 
     /**
      * Used to generate random solutions when a plateau or valley is found.

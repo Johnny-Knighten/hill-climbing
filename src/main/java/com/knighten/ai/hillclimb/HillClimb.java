@@ -14,7 +14,7 @@ import java.util.List;
  * restarts, so it is unlikely the optimal state will be found. It has the ability for early termination when a specific
  * value is found and can terminate when a set number of iterations are executed.
  */
-public class HillClimb extends HillClimbOptimizer {
+public class HillClimb extends AbstractHillClimbOptimizer {
 
     /**
      * Creates an instance of HillClimb solving the supplied problem using the supplied parameters.

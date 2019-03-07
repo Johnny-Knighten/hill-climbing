@@ -4,7 +4,7 @@ package com.knighten.ai.hillclimb.interfaces;
 import java.util.List;
 
 /**
- * Represents the problem being optimized by class that extends HillClimbOptimizer.
+ * Represents the problem being optimized by classes that extends AbstractHillClimbOptimizer.
  */
 public interface IHillClimbProblem {
 
