@@ -30,7 +30,7 @@ public interface IHillClimbProblem {
      * some problems may be minimizing or maximizing.
      *
      * @param currentSolution the current solution in the hill climb iteration
-     * @param newSolution a solution generated from the current solution
+     * @param newSolution     a solution generated from the current solution
      * @return true is a peak/valley or plateau is found, false otherwise
      */
     boolean atPeakOrPlateau(IHillClimbSolution currentSolution, IHillClimbSolution newSolution);

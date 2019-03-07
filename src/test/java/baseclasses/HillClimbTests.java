@@ -152,7 +152,7 @@ public class HillClimbTests {
 
     @Test
     public void fourQueens() {
-        NQueensSolution initialState = new NQueensSolution(new int[]{0,1,2,3});
+        NQueensSolution initialState = new NQueensSolution(new int[]{0, 1, 2, 3});
         NQueensProblem problem = new NQueensProblem(initialState);
         HillClimb climber = new HillClimb(problem, mockParamsRealRuns);
         IHillClimbSolution solution = climber.optimize();
@@ -162,7 +162,7 @@ public class HillClimbTests {
 
     @Test
     public void eightQueens() {
-        NQueensSolution initialState = new NQueensSolution(new int[]{0,1,2,3,4,5,6,7});
+        NQueensSolution initialState = new NQueensSolution(new int[]{0, 1, 2, 3, 4, 5, 6, 7});
         NQueensProblem problem = new NQueensProblem(initialState);
         HillClimb climber = new HillClimb(problem, mockParamsRealRuns);
         IHillClimbSolution solution = climber.optimize();

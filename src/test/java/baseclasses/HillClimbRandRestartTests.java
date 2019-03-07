@@ -6,8 +6,8 @@ import com.knighten.ai.hillclimb.interfaces.IHillClimbProblem;
 import com.knighten.ai.hillclimb.interfaces.IHillClimbSolnGenerator;
 import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
 import com.knighten.ai.hillclimb.nqueens.NQueensProblem;
-import com.knighten.ai.hillclimb.nqueens.NQueensSolution;
 import com.knighten.ai.hillclimb.nqueens.NQueensSolnGenerator;
+import com.knighten.ai.hillclimb.nqueens.NQueensSolution;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -105,7 +105,7 @@ public class HillClimbRandRestartTests {
 
     @Test(expected = IllegalArgumentException.class)
     public void constructorNullGenerator() {
-        new HillClimbRandRestart(mockProblemNoPeak, mockParams,null);
+        new HillClimbRandRestart(mockProblemNoPeak, mockParams, null);
     }
 
     ////////////////////
@@ -219,11 +219,11 @@ public class HillClimbRandRestartTests {
 
     @Test
     public void fourQueensMinimize() {
-        NQueensSolution initialState = new NQueensSolution(new int[]{0,1,2,3});
+        NQueensSolution initialState = new NQueensSolution(new int[]{0, 1, 2, 3});
         NQueensProblem problem = new NQueensProblem(initialState);
         Random random = new Random(0);
         NQueensSolnGenerator generator = new NQueensSolnGenerator(4, random);
-        HillClimbRandRestart climber = new HillClimbRandRestart(problem, mockParamsRealRuns , generator);
+        HillClimbRandRestart climber = new HillClimbRandRestart(problem, mockParamsRealRuns, generator);
         IHillClimbSolution solution = climber.optimize();
 
         Assert.assertEquals(0, solution.getScore(), 00000.1);
@@ -231,11 +231,11 @@ public class HillClimbRandRestartTests {
 
     @Test
     public void eightQueensMinimize() {
-        NQueensSolution initialState = new NQueensSolution(new int[]{0,1,2,3,4,5,6,7});
+        NQueensSolution initialState = new NQueensSolution(new int[]{0, 1, 2, 3, 4, 5, 6, 7});
         NQueensProblem problem = new NQueensProblem(initialState);
         Random random = new Random(0);
         NQueensSolnGenerator generator = new NQueensSolnGenerator(8, random);
-        HillClimbRandRestart climber = new HillClimbRandRestart(problem, mockParamsRealRuns , generator);
+        HillClimbRandRestart climber = new HillClimbRandRestart(problem, mockParamsRealRuns, generator);
         IHillClimbSolution solution = climber.optimize();
 
         Assert.assertEquals(0, solution.getScore(), 00000.1);

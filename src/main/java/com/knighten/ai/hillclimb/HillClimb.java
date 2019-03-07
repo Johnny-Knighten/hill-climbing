@@ -3,7 +3,6 @@ package com.knighten.ai.hillclimb;
 
 import com.knighten.ai.hillclimb.interfaces.IHillClimbProblem;
 import com.knighten.ai.hillclimb.interfaces.IHillClimbSolution;
-
 import com.knighten.ai.hillclimb.nqueens.NQueensProblem;
 import com.knighten.ai.hillclimb.nqueens.NQueensSolution;
 
@@ -20,14 +19,14 @@ public class HillClimb extends AbstractHillClimbOptimizer {
      * Creates an instance of HillClimb solving the supplied problem using the supplied parameters.
      *
      * @param problem the problem being solved by the optimizer
-     * @param params parameters used by the optimizer
+     * @param params  parameters used by the optimizer
      */
     public HillClimb(IHillClimbProblem problem, HillClimbParams params) {
 
-        if(problem == null)
+        if (problem == null)
             throw new IllegalArgumentException("Problem Object Cannot Be Null");
 
-        if(params == null)
+        if (params == null)
             throw new IllegalArgumentException("Optimizer Parameters Object Cannot Be Null");
 
         this.setProblem(problem);
@@ -56,22 +55,22 @@ public class HillClimb extends AbstractHillClimbOptimizer {
             List<IHillClimbSolution> nextSolutions = this.getProblem().generateNextSolutions(current);
 
             // Score Each Next Solution
-            for(IHillClimbSolution solution: nextSolutions)
+            for (IHillClimbSolution solution : nextSolutions)
                 solution.setScore(this.getProblem().scoreSolution(solution));
 
             // Get The Best Next Solution
             IHillClimbSolution bestNextSolution = this.getProblem().getBestSolution(nextSolutions);
 
             // Check If We Hit Valley/Peak Or Plateau Otherwise Update Current And Continue
-             if(this.getProblem().atPeakOrPlateau(current, bestNextSolution))
-                 isPeakOrPlateau = true;
-             else
-                 current = bestNextSolution;
+            if (this.getProblem().atPeakOrPlateau(current, bestNextSolution))
+                isPeakOrPlateau = true;
+            else
+                current = bestNextSolution;
 
-             // Update Number Of Iterations
-             iterations++;
+            // Update Number Of Iterations
+            iterations++;
 
-        } while(current.getScore() != this.getParams().getGoalScore() && !isPeakOrPlateau &&
+        } while (current.getScore() != this.getParams().getGoalScore() && !isPeakOrPlateau &&
                 iterations < this.getParams().getMaxIterations());
 
         return current;
@@ -82,7 +81,7 @@ public class HillClimb extends AbstractHillClimbOptimizer {
         params.setGoalScore(0);
         params.setMaxIterations(100);
 
-        NQueensSolution initialState = new NQueensSolution(new int[]{0,1,2,3,4,5,6,7});
+        NQueensSolution initialState = new NQueensSolution(new int[]{0, 1, 2, 3, 4, 5, 6, 7});
 
         NQueensProblem problem = new NQueensProblem(initialState);
 

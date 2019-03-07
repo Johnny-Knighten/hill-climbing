@@ -27,7 +27,7 @@ public abstract class AbstractHillClimbOptimizer {
     public abstract IHillClimbSolution optimize();
 
     /**
-     *  Gets the optimizers parameters.
+     * Gets the optimizers parameters.
      *
      * @return the optimizers parameters
      */
@@ -54,13 +54,12 @@ public abstract class AbstractHillClimbOptimizer {
     }
 
     /**
-     *  Sets the problem used by the optimizer.
+     * Sets the problem used by the optimizer.
      *
      * @param problem the problem
      */
     public void setProblem(IHillClimbProblem problem) {
         this.problem = problem;
     }
-
 
 }

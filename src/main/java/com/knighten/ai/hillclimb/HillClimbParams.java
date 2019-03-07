@@ -7,7 +7,14 @@ package com.knighten.ai.hillclimb;
  */
 public class HillClimbParams {
 
+    /**
+     * The goal score that will terminate the optimization.
+     */
     private double goalScore = Integer.MAX_VALUE;
+
+    /**
+     * The max number of iteration the optimization can run.
+     */
     private int maxIterations = Integer.MAX_VALUE;
 
     /**
@@ -26,7 +33,7 @@ public class HillClimbParams {
      */
     public void setGoalScore(double goalScore) {
 
-        if(Double.isNaN(goalScore))
+        if (Double.isNaN(goalScore))
             throw new IllegalArgumentException("Goal Score Cannot Be NaN");
 
         this.goalScore = goalScore;
@@ -48,7 +55,7 @@ public class HillClimbParams {
      */
     public void setMaxIterations(int maxIterations) {
 
-        if(maxIterations < 1)
+        if (maxIterations < 1)
             throw new IllegalArgumentException("Max Iterations Must Be Greater Than 0");
 
         this.maxIterations = maxIterations;

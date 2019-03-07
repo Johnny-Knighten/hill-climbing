@@ -25,19 +25,19 @@ public class HillClimbRandRestart extends AbstractHillClimbOptimizer {
      * Creates an instance of HillClimbRandRestart solving the supplied problem using the supplied parameters. A
      * IHillClimbSolnGenerator is provided to generate random solutions when a restart occurs.
      *
-     * @param problem the problem being optimized
-     * @param params parameters used by the optimizer
+     * @param problem   the problem being optimized
+     * @param params    parameters used by the optimizer
      * @param generator used to generate random solutions
      */
     public HillClimbRandRestart(IHillClimbProblem problem, HillClimbParams params, IHillClimbSolnGenerator generator) {
 
-        if(problem == null)
+        if (problem == null)
             throw new IllegalArgumentException("Problem Object Cannot Be Null");
 
-        if(params == null)
+        if (params == null)
             throw new IllegalArgumentException("Optimizer Parameters Object Cannot Be Null");
 
-        if(generator == null)
+        if (generator == null)
             throw new IllegalArgumentException(" Solution Generator Object Cannot Be Null");
 
         this.setProblem(problem);
@@ -46,7 +46,7 @@ public class HillClimbRandRestart extends AbstractHillClimbOptimizer {
     }
 
     /**
-     *  Starts the hill climbing process to find an optimal solution.
+     * Starts the hill climbing process to find an optimal solution.
      *
      * @return the most optimal solution found
      */
@@ -62,21 +62,21 @@ public class HillClimbRandRestart extends AbstractHillClimbOptimizer {
         do {
 
             // Update BestSoFar If Current Is Better
-            if(this.getProblem().firstSolutionBetterThanOther(current, bestSoFar))
+            if (this.getProblem().firstSolutionBetterThanOther(current, bestSoFar))
                 bestSoFar = current;
 
             // Generate Next Solutions
             List<IHillClimbSolution> nextSolutions = this.getProblem().generateNextSolutions(current);
 
             // Score Each Next Solution
-            for(IHillClimbSolution solution: nextSolutions)
+            for (IHillClimbSolution solution : nextSolutions)
                 solution.setScore(this.getProblem().scoreSolution(solution));
 
             // Get The Best Next Solution
             IHillClimbSolution bestNextSolution = this.getProblem().getBestSolution(nextSolutions);
 
             // Check If We Hit Valley/Peak or Plateau If So Perform Random Restart Else Continue The Search
-            if(this.getProblem().atPeakOrPlateau(current, bestNextSolution)) {
+            if (this.getProblem().atPeakOrPlateau(current, bestNextSolution)) {
                 current = this.generator.randomSolution();
                 current.setScore(this.getProblem().scoreSolution(current));
 
@@ -87,7 +87,7 @@ public class HillClimbRandRestart extends AbstractHillClimbOptimizer {
             // Update Number Of Iterations
             iterations++;
 
-        } while(bestSoFar.getScore() != this.getParams().getGoalScore() && iterations < this.getParams().getMaxIterations());
+        } while (bestSoFar.getScore() != this.getParams().getGoalScore() && iterations < this.getParams().getMaxIterations());
 
         return bestSoFar;
     }

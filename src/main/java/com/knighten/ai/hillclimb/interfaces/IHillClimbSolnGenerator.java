@@ -5,9 +5,10 @@ package com.knighten.ai.hillclimb.interfaces;
  */
 public interface IHillClimbSolnGenerator {
     /**
-     *  Generates a random IHillClimbSolution to be used by HillClimbRandRestart
+     * Generates a random IHillClimbSolution to be used by HillClimbRandRestart
      *
      * @return a random IHillClimbSolution
      */
     IHillClimbSolution randomSolution();
+
 }
